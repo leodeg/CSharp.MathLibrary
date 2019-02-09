@@ -7,8 +7,8 @@
     <ProjectGuid>{7B21296D-C078-423D-A6F3-155660A9BE86}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MathLib</RootNamespace>
-    <AssemblyName>MathLib</AssemblyName>
+    <RootNamespace>LeoDeg.MathLib</RootNamespace>
+    <AssemblyName>LeoDeg.MathLib</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -44,15 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Matrice2.cs" />
-    <Compile Include="Matrice3.cs" />
-    <Compile Include="Matrice4.cs" />
-    <Compile Include="Vector2.cs" />
+    <Compile Include="Base\Matrices\Matrice2.cs" />
+    <Compile Include="Base\Matrices\Matrice3.cs" />
+    <Compile Include="Base\Matrices\Matrice4.cs" />
+    <Compile Include="Base\Vectors\Vector2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Vector3.cs" />
+    <Compile Include="Base\Vectors\Vector3.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="math.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Geometry\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

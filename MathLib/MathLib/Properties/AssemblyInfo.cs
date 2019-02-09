@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription ("Mathematic library")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany ("LeoDeg")]
-[assembly: AssemblyProduct("MathLib")]
+[assembly: AssemblyProduct ("MathLibrary")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

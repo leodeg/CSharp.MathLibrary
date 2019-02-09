@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MathLib
+namespace LeoDeg.MathLib
 {
-	class Matrice3
+	class Matrice4
 	{
 	}
 }

@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MathLib
+namespace LeoDeg.MathLib
 {
 	public struct Vector3
 	{
-		float x, y, z;
+		float _x, _y, _z;
 
 		public Vector3 (float x, float y, float z)
 		{
-			this.x = x;
-			this.y = y;
-			this.z = z;
+			this._x = x;
+			this._y = y;
+			this._z = z;
 		}
 	}
 }

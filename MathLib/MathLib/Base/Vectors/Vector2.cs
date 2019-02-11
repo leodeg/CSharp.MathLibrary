@@ -88,12 +88,32 @@ namespace LeoDeg.MathLib
 		/// <summary>
 		/// Return angle between two vectors.
 		/// </summary>
-		public static float Angle (Vector2 a, Vector2 b)
+		public static float Angle (Vector2 from, Vector2 to)
 		{
-			float dot = Dot (a, b);
-			float magnitude = Magnitude (a) * Magnitude (b);
-
+			float magnitude = Magnitude (from) * Magnitude (to);
+			float dot = Dot (from, to);
 			return dot / magnitude;
+		}
+
+		/// <summary>
+		/// Check angle type: (0) is right angle, (1) is acute angle, (-1) is obtuse angle.
+		/// </summary>
+		public static int AngleType (Vector2 from, Vector2 to)
+		{
+			float angle = Angle (from, to);
+			if (angle.Equals (0f)) return 0;
+			if (angle < 0) return -1;
+			return 1;
+		}
+
+		/// <summary>
+		/// Check angle type: (0) is right angle, (1) is acute angle, (-1) is obtuse angle.
+		/// </summary>
+		public static int AngleType (float angle)
+		{
+			if (angle.Equals (0f)) return 0;
+			if (angle < 0) return -1;
+			return 1;
 		}
 
 		#region Dot Product
@@ -174,7 +194,7 @@ namespace LeoDeg.MathLib
 		}
 
 		/// <summary>
-		/// Return distance from current position and 'to'.
+		/// Return distance from current position to 'to'.
 		/// </summary>
 		public float DistanceSquared (Vector2 to) => DistanceSquared (this, to);
 
@@ -183,8 +203,8 @@ namespace LeoDeg.MathLib
 		/// </summary>
 		public static float Distance (Vector2 from, Vector2 to)
 		{
-			float distX = from.x - to.x;
-			float distY = from.y - to.y;
+			float distX = to.x - from.x;
+			float distY = to.y - from.y;
 			return (float)Math.Sqrt (Dot (distX, distY));
 		}
 
@@ -192,6 +212,14 @@ namespace LeoDeg.MathLib
 		/// Return distance from current position and 'to'.
 		/// </summary>
 		public float Distance (Vector2 to) => Distance (this, to);
+
+		/// <summary>
+		/// Return direction vector between two vectors.
+		/// </summary>
+		public static Vector2 Direction (Vector2 from, Vector2 to)
+		{
+			return to - from;
+		}
 
 		#endregion
 
@@ -285,12 +313,6 @@ namespace LeoDeg.MathLib
 		}
 
 		public static Vector2 operator / (Vector2 a, float scalar)
-		{
-			scalar = 1f / scalar;
-			return new Vector2 (a.x * scalar, a.y * scalar);
-		}
-
-		public static Vector2 operator / (float scalar, Vector2 a)
 		{
 			scalar = 1f / scalar;
 			return new Vector2 (a.x * scalar, a.y * scalar);

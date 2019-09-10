@@ -1,10 +1,11 @@
-﻿using System;
+﻿using LeoDeg.MathLib.Matrices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LeoDeg.MathLib
+namespace LeoDeg.MathLib.Vectors
 {
 	public struct Vector3
 	{

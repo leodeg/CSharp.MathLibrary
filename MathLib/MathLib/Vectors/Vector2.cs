@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace LeoDeg.MathLib.Vectors
+namespace LeoDeg.Math.Vectors
 {
     public struct Vector2
     {
@@ -14,13 +10,34 @@ namespace LeoDeg.MathLib.Vectors
         public static readonly Vector2 Left = new Vector2 (-1, 0);
         public static readonly Vector2 Right = new Vector2 (1, 0);
 
-        public Vector2 (float x, float y)
+		public static readonly Vector2 Zero = new Vector2 (0, 0);
+		public static readonly Vector2 Identity = new Vector2 (1, 1);
+
+		public Vector2 (float x = 0, float y = 0)
         {
             this.x = x;
             this.y = y;
         }
 
-        public float this[int index]
+		public Vector2 (Vector2 vector)
+		{
+			if (vector == null)
+				throw new ArgumentNullException ();
+
+			x = vector.x;
+			y = vector.y;
+		}
+
+		public Vector2 (float[] vector2)
+		{
+			if (vector2.Length != 2)
+				throw new ArgumentOutOfRangeException ();
+
+			x = vector2[0];
+			y = vector2[1];
+		}
+
+		public float this[int index]
         {
             get
             {
@@ -54,7 +71,7 @@ namespace LeoDeg.MathLib.Vectors
         /// <summary>
         /// Return magnitude of this vector.
         /// </summary>
-        public float magnitude => Convert.ToSingle (Math.Sqrt (Dot (this, this)));
+        public float magnitude => Convert.ToSingle (System.Math.Sqrt (Dot (this, this)));
 
         #endregion
 
@@ -114,24 +131,14 @@ namespace LeoDeg.MathLib.Vectors
         #region Magnitude
 
         /// <summary>
-        /// Return squared magnitude (speed) of two vectors.
-        /// </summary>
-        public static float MagnitudeSquared (Vector2 a, Vector2 b) => Dot (a, b);
-
-        /// <summary>
-        /// Return squared magnitude (speed) of a vector.
-        /// </summary>
-        public static float MagnitudeSquared (Vector2 a) => Dot (a, a);
-
-        /// <summary>
         /// Return magnitude (speed) of two vectors
         /// </summary>
-        public static float Magnitude (Vector2 a, Vector2 b) => Convert.ToSingle (Math.Sqrt (Dot (a, b)));
+        public static float Magnitude (Vector2 a, Vector2 b) => Convert.ToSingle (System.Math.Sqrt (Dot (a, b)));
 
         /// <summary>
         /// Return magnitude (speed) of a vector.
         /// </summary>
-        public static float Magnitude (Vector2 vector) => Convert.ToSingle (Math.Sqrt (Dot (vector, vector)));
+        public static float Magnitude (Vector2 vector) => Convert.ToSingle (System.Math.Sqrt (Dot (vector, vector)));
 
         #endregion
 
@@ -214,7 +221,7 @@ namespace LeoDeg.MathLib.Vectors
         {
             float distX = to.x - from.x;
             float distY = to.y - from.y;
-            return Convert.ToSingle (Math.Sqrt (Dot (distX, distY)));
+            return Convert.ToSingle (System.Math.Sqrt (Dot (distX, distY)));
         }
 
         /// <summary>
@@ -224,7 +231,7 @@ namespace LeoDeg.MathLib.Vectors
         {
             float distX = this.x - target.x;
             float distY = this.y - target.y;
-            return Convert.ToSingle (Math.Sqrt (Dot (distX, distY)));
+            return Convert.ToSingle (System.Math.Sqrt (Dot (distX, distY)));
         }
 
         /// <summary>

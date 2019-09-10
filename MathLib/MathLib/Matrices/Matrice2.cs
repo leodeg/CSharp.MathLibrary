@@ -1,41 +1,40 @@
-﻿using LeoDeg.MathLib.Vectors;
-using System;
+﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LeoDeg.Math.Vectors;
 
-namespace LeoDeg.MathLib.Matrices
+namespace LeoDeg.Math.Matrices
 {
 	public struct Matrice2 : IEnumerable
 	{
-		private float[,] m_Matrix;
+		private float[,] matrix;
 
 		#region Constructors
 
 		public Matrice2 (float[,] matrix)
 		{
-			m_Matrix = new float[2, 2];
-			m_Matrix = matrix;
+			if (matrix.Length != 4)
+				throw new ArgumentOutOfRangeException ();
+
+			this.matrix = new float[2, 2];
+			this.matrix = matrix;
 		}
 
 		public Matrice2 (float n00, float n01, float n10, float n11)
 		{
-			m_Matrix = new float[2, 2];
-			m_Matrix[0, 0] = n00;
-			m_Matrix[0, 1] = n01;
-			m_Matrix[1, 0] = n10;
-			m_Matrix[1, 1] = n11;
+			matrix = new float[2, 2];
+			matrix[0, 0] = n00;
+			matrix[0, 1] = n01;
+			matrix[1, 0] = n10;
+			matrix[1, 1] = n11;
 		}
 
 		public Matrice2 (Vector2 a, Vector2 b)
 		{
-			m_Matrix = new float[2, 2];
-			m_Matrix[0, 0] = a.x;
-			m_Matrix[0, 1] = a.y;
-			m_Matrix[1, 0] = b.x;
-			m_Matrix[1, 1] = b.y;
+			matrix = new float[2, 2];
+			matrix[0, 0] = a.x;
+			matrix[0, 1] = a.y;
+			matrix[1, 0] = b.x;
+			matrix[1, 1] = b.y;
 		}
 
 		#endregion
@@ -47,8 +46,8 @@ namespace LeoDeg.MathLib.Matrices
 		/// </summary>
 		public float this[int a, int b]
 		{
-			get { return m_Matrix[a, b]; }
-			set { m_Matrix[a, b] = value; }
+			get { return matrix[a, b]; }
+			set { matrix[a, b] = value; }
 		}
 
 		/// <summary>
@@ -136,43 +135,6 @@ namespace LeoDeg.MathLib.Matrices
 
 		#endregion
 
-		#region Math Operations
-
-		/// <summary>
-		/// Add two matrix together.
-		/// </summary>
-		public static Matrice2 Add (Matrice2 a, Matrice2 b) => a + b;
-
-		/// <summary>
-		/// Subtract second matrix from first matrix.
-		/// </summary>
-		public static Matrice2 Sub (Matrice2 a, Matrice2 b) => a - b;
-
-		/// <summary>
-		/// Multiply first matrix by second matrix.
-		/// </summary>
-		public static Matrice2 Mult (Matrice2 a, Matrice2 b) => a * b;
-
-		/// <summary>
-		/// Multiply matrix by vector.
-		/// </summary>
-		public static Matrice2 Mult (Matrice2 a, Vector2 b) => a * b;
-
-		/// <summary>
-		/// Multiply matrix by scalar value.
-		/// </summary>
-		public static Matrice2 Mult (Matrice2 a, float scalar) => a * scalar;
-
-		/// <summary>
-		/// Divide first matrix by second matrix.
-		/// </summary>
-		public static Matrice2 Div (Matrice2 a, Matrice2 b)
-		{
-			throw new NotImplementedException ();
-		}
-
-		#endregion
-
 		#region Override Methods
 
 		/// <summary>
@@ -180,9 +142,12 @@ namespace LeoDeg.MathLib.Matrices
 		/// </summary>
 		public override bool Equals (object obj)
 		{
-			if (ReferenceEquals (null, obj)) return false;
-			if (ReferenceEquals (this, obj)) return true;
-			if (obj.GetType () != this.GetType ()) return false;
+			if (ReferenceEquals (null, obj))
+				return false;
+			if (ReferenceEquals (this, obj))
+				return true;
+			if (obj.GetType () != this.GetType ())
+				return false;
 
 			return obj is Matrice2 && this.Equals ((Matrice2)obj);
 		}
@@ -192,18 +157,18 @@ namespace LeoDeg.MathLib.Matrices
 		/// </summary>
 		public bool Equals (Matrice2 other)
 		{
-			return m_Matrix[0, 0].Equals (other[0, 0])
-				&& m_Matrix[0, 1].Equals (other[0, 1])
-				&& m_Matrix[1, 0].Equals (other[1, 0])
-				&& m_Matrix[1, 1].Equals (other[1, 1]);
+			return matrix[0, 0].Equals (other[0, 0])
+				&& matrix[0, 1].Equals (other[0, 1])
+				&& matrix[1, 0].Equals (other[1, 0])
+				&& matrix[1, 1].Equals (other[1, 1]);
 		}
+
+		public IEnumerator GetEnumerator () => matrix.GetEnumerator ();
 
 		public override int GetHashCode ()
 		{
 			return base.GetHashCode ();
 		}
-
-		public IEnumerator GetEnumerator () => m_Matrix.GetEnumerator ();
 
 		#endregion
 

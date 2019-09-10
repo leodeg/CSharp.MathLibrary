@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using LeoDeg.MathLib.Vectors;
+using LeoDeg.Math.Vectors;
 
 namespace LeoDeg.MathLibUnitTests
 {

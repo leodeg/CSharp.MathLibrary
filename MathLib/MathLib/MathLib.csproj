@@ -44,12 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\Matrices\Matrice2.cs" />
-    <Compile Include="Base\Matrices\Matrice3.cs" />
-    <Compile Include="Base\Matrices\Matrice4.cs" />
-    <Compile Include="Base\Vectors\Vector2.cs" />
+    <Compile Include="Matrices\Matrice2.cs" />
+    <Compile Include="Matrices\Matrice3.cs" />
+    <Compile Include="Matrices\Matrice4.cs" />
+    <Compile Include="Vectors\Vector2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Base\Vectors\Vector3.cs" />
+    <Compile Include="Vectors\Vector3.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="math.ico" />

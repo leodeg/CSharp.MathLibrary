@@ -1,33 +1,52 @@
-﻿using LeoDeg.MathLib.Matrices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using LeoDeg.Math.Matrices;
 
-namespace LeoDeg.MathLib.Vectors
+namespace LeoDeg.Math.Vectors
 {
 	public struct Vector3
 	{
-		public Vector3 (float x, float y, float z)
+		public static readonly Vector3 Up = new Vector3 (0, 1, 0);
+		public static readonly Vector3 Down = new Vector3 (0, -1, 0);
+		public static readonly Vector3 Left = new Vector3 (-1, 0, 0);
+		public static readonly Vector3 Right = new Vector3 (1, 0, 0);
+		public static readonly Vector3 Forward = new Vector3 (0, 0, 1);
+		public static readonly Vector3 Backward = new Vector3 (0, 0, -1);
+
+		public static readonly Vector3 Zero = new Vector3 (0, 0, 0);
+		public static readonly Vector3 Identity = new Vector3 (1, 1, 1);
+
+		public Vector3 (float x = 0, float y = 0, float z = 0)
 		{
 			this.x = x;
 			this.y = y;
 			this.z = z;
 		}
 
-		public Vector3 (float[] arr)
-		{
-			x = arr[0];
-			y = arr[1];
-			z = arr[2];
-		}
-
 		public Vector3 (Vector2 vector)
 		{
+			if (vector == null)
+				throw new ArgumentNullException ();
+
 			x = vector.x;
 			y = vector.y;
 			z = 0;
+		}
+
+		public Vector3 (Vector3 vector)
+		{
+			x = vector.x;
+			y = vector.y;
+			z = vector.z;
+		}
+
+		public Vector3 (float[] vector3)
+		{
+			if (vector3.Length != 3)
+				throw new ArgumentOutOfRangeException ();
+
+			x = vector3[0];
+			y = vector3[1];
+			z = vector3[2];
 		}
 
 		public float this[int index]
@@ -36,57 +55,40 @@ namespace LeoDeg.MathLib.Vectors
 			{
 				switch (index)
 				{
-					case 0: return x;
-					case 1: return y;
-					case 2: return z;
-					default: throw new ArgumentOutOfRangeException ();
+					case 0:
+						return x;
+					case 1:
+						return y;
+					case 2:
+						return z;
+					default:
+						throw new ArgumentOutOfRangeException ();
 				}
 			}
 			set
 			{
 				switch (index)
 				{
-					case 0: x = value; break;
-					case 1: y = value; break;
-					case 2: z = value; break;
-					default: throw new ArgumentOutOfRangeException ();
+					case 0:
+						x = value;
+						break;
+					case 1:
+						y = value;
+						break;
+					case 2:
+						z = value;
+						break;
+					default:
+						throw new ArgumentOutOfRangeException ();
 				}
 			}
 		}
 
+		#region Properties
+
 		public float x { get; set; }
 		public float y { get; set; }
 		public float z { get; set; }
-
-		/// <summary>
-		/// Vector3 (0f,1f,0f)
-		/// </summary>
-		public Vector3 up => new Vector3 (0f, 1f, 0f);
-
-		/// <summary>
-		/// Vector3 (0f,-1f,0f)
-		/// </summary>
-		public Vector3 down => new Vector3 (0f, -1f, 0f);
-
-		/// <summary>
-		/// Vector3 (-1f,0f,0f)
-		/// </summary>
-		public Vector3 left => new Vector3 (-1f, 0f, 0f);
-
-		/// <summary>
-		/// Vector3 (1f,0f,0f)
-		/// </summary>
-		public Vector3 right => new Vector3 (1f, 0f, 0f);
-
-		/// <summary>
-		/// Vector3 (0f,0f,1f)
-		/// </summary>
-		public Vector3 forward => new Vector3 (0f, 0f, 1f);
-
-		/// <summary>
-		/// Vector3 (0f,0f,-1f)
-		/// </summary>
-		public Vector3 backward => new Vector3 (0f, 0f, -1f);
 
 		/// <summary>
 		/// Return current vector in unit form.
@@ -98,21 +100,22 @@ namespace LeoDeg.MathLib.Vectors
 		/// </summary>
 		public float magnitude => Magnitude (this);
 
-
-		#region Vector3 Methods
+		#endregion
 
 		/// <summary>
 		/// Make vector a unit vector.
 		/// </summary>
-		public static Vector3 Normalize (Vector3 v)
+		public static Vector3 Normalize (Vector3 vector)
 		{
-			return ( v / Magnitude (v) );
+			return vector / Magnitude (vector);
 		}
+
+		#region Angle
 
 		/// <summary>
 		/// Return angle between two vectors.
 		/// </summary>
-		public static float Angle (Vector3 from, Vector3 to)
+		public static float GetAngle (Vector3 from, Vector3 to)
 		{
 			float magnitude = Magnitude (from) * Magnitude (to);
 			float dot = Dot (from, to);
@@ -120,11 +123,50 @@ namespace LeoDeg.MathLib.Vectors
 		}
 
 		/// <summary>
+		/// Check angle type: (0) is right angle, (1) is acute angle, (-1) is obtuse angle.
+		/// </summary>
+		/// <returns>
+		/// (0) - is right angle
+		/// (1) - is acute angle, 
+		/// (-1) - is obtuse angle.
+		/// </returns>
+		public static int GetAngleType (Vector3 from, Vector3 to)
+		{
+			float angle = GetAngle (from, to);
+			if (angle.Equals (0f))
+				return 0;
+			if (angle < 0)
+				return -1;
+			return 1;
+		}
+
+		/// <summary>
+		/// Check angle type: (0) is right angle, (1) is acute angle, (-1) is obtuse angle.
+		/// </summary>
+		/// /// <returns>
+		/// (0) - is right angle
+		/// (1) - is acute angle, 
+		/// (-1) - is obtuse angle.
+		/// </returns>
+		public static int GetAngleType (float angle)
+		{
+			if (angle.Equals (0f))
+				return 0;
+			if (angle < 0)
+				return -1;
+			return 1;
+		}
+
+		#endregion
+
+		#region Dot and Cross products
+
+		/// <summary>
 		/// Return dot product of two vectors.
 		/// </summary>
 		public static float Dot (Vector3 a, Vector3 b)
 		{
-			return ( a.x * b.x ) + ( a.y * b.y ) + ( a.z * b.z );
+			return (a.x * b.x) + (a.y * b.y) + (a.z * b.z);
 		}
 
 		/// <summary>
@@ -132,7 +174,7 @@ namespace LeoDeg.MathLib.Vectors
 		/// </summary>
 		public static float Dot (Vector3 v)
 		{
-			return ( v.x * v.x ) + ( v.y * v.y ) + ( v.z * v.z );
+			return (v.x * v.x) + (v.y * v.y) + (v.z * v.z);
 		}
 
 		/// <summary>
@@ -140,7 +182,7 @@ namespace LeoDeg.MathLib.Vectors
 		/// </summary>
 		public static float Dot (float x, float y, float z)
 		{
-			return ( x * x ) + ( y * y ) + ( z * z );
+			return (x * x) + (y * y) + (z * z);
 		}
 
 		/// <summary>
@@ -157,12 +199,16 @@ namespace LeoDeg.MathLib.Vectors
 			);
 		}
 
+		#endregion
+
+		#region Magnitude
+
 		/// <summary>
 		/// Return magnitude (speed) of two vectors
 		/// </summary>
 		public static float Magnitude (Vector3 a, Vector3 b)
 		{
-			return (float)Math.Sqrt (Dot (a, b));
+			return Convert.ToSingle (System.Math.Sqrt (Dot (a, b)));
 		}
 
 		/// <summary>
@@ -170,8 +216,12 @@ namespace LeoDeg.MathLib.Vectors
 		/// </summary>
 		public static float Magnitude (Vector3 v)
 		{
-			return (float)Math.Sqrt (Dot (v));
+			return Convert.ToSingle (System.Math.Sqrt (Dot (v)));
 		}
+
+		#endregion
+
+		#region Projection
 
 		/// <summary>
 		/// Make projection of vector a onto vector b.
@@ -179,7 +229,7 @@ namespace LeoDeg.MathLib.Vectors
 		/// </summary>
 		public static Vector3 Project (Vector3 a, Vector3 b)
 		{
-			return b * ( Dot (a, b) / Dot (b, b) );
+			return b * (Dot (a, b) / Dot (b, b));
 		}
 
 		/// <summary>
@@ -188,8 +238,12 @@ namespace LeoDeg.MathLib.Vectors
 		/// </summary>
 		public static Vector3 Reject (Vector3 a, Vector3 b)
 		{
-			return a - ( b * ( Dot (a, b) / Dot (b, b) ) );
+			return a - (b * (Dot (a, b) / Dot (b, b)));
 		}
+
+		#endregion
+
+		#region Distance
 
 		/// <summary>
 		/// Return distance between 'from' and 'to'.
@@ -200,7 +254,7 @@ namespace LeoDeg.MathLib.Vectors
 			float distY = to.y - from.y;
 			float distZ = to.z - from.z;
 
-			return (float)Math.Sqrt (Dot (distX, distY, distZ));
+			return Convert.ToSingle (System.Math.Sqrt (Dot (distX, distY, distZ)));
 		}
 
 		/// <summary>
@@ -208,7 +262,11 @@ namespace LeoDeg.MathLib.Vectors
 		/// </summary>
 		public float Distance (Vector3 to)
 		{
-			return Distance (this, to);
+			float distX = to.x - this.x;
+			float distY = to.y - this.y;
+			float distZ = to.z - this.z;
+
+			return Convert.ToSingle (System.Math.Sqrt (Dot (distX, distY, distZ)));
 		}
 
 		/// <summary>

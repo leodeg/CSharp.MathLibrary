@@ -1,11 +1,7 @@
-﻿using LeoDeg.MathLib.Vectors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using LeoDeg.Math.Vectors;
 
-namespace LeoDeg.MathLib.Matrices
+namespace LeoDeg.Math.Matrices
 {
 	public struct Matrice3
 	{
@@ -18,18 +14,30 @@ namespace LeoDeg.MathLib.Matrices
 						 float n20, float n21, float n22)
 		{
 			m_Matrix = new float[3, 3];
-			m_Matrix[0, 0] = n00; m_Matrix[0, 1] = n01; m_Matrix[0, 2] = n02;
-			m_Matrix[1, 0] = n10; m_Matrix[1, 1] = n11; m_Matrix[1, 2] = n12;
-			m_Matrix[2, 0] = n20; m_Matrix[2, 1] = n21; m_Matrix[2, 2] = n22;
+			m_Matrix[0, 0] = n00;
+			m_Matrix[0, 1] = n01;
+			m_Matrix[0, 2] = n02;
+			m_Matrix[1, 0] = n10;
+			m_Matrix[1, 1] = n11;
+			m_Matrix[1, 2] = n12;
+			m_Matrix[2, 0] = n20;
+			m_Matrix[2, 1] = n21;
+			m_Matrix[2, 2] = n22;
 
 		}
 
 		public Matrice3 (Vector3 a, Vector3 b, Vector3 c)
 		{
 			m_Matrix = new float[3, 3];
-			m_Matrix[0, 0] = a.x; m_Matrix[0, 1] = a.y; m_Matrix[0, 2] = a.z;
-			m_Matrix[1, 0] = b.x; m_Matrix[1, 1] = b.y; m_Matrix[1, 2] = b.z;
-			m_Matrix[2, 0] = c.x; m_Matrix[2, 1] = c.y; m_Matrix[2, 2] = c.z;
+			m_Matrix[0, 0] = a.x;
+			m_Matrix[0, 1] = a.y;
+			m_Matrix[0, 2] = a.z;
+			m_Matrix[1, 0] = b.x;
+			m_Matrix[1, 1] = b.y;
+			m_Matrix[1, 2] = b.z;
+			m_Matrix[2, 0] = c.x;
+			m_Matrix[2, 1] = c.y;
+			m_Matrix[2, 2] = c.z;
 		}
 
 		/// <summary>
@@ -113,9 +121,9 @@ namespace LeoDeg.MathLib.Matrices
 		/// </summary>
 		public static float Determinant (Matrice3 m)
 		{
-			return m[0, 0] * ( m[1, 1] * m[2, 2] - m[1, 2] * m[2, 1] )
-				 + m[0, 1] * ( m[1, 2] * m[2, 0] - m[1, 0] * m[2, 2] )
-				 + m[0, 2] * ( m[1, 0] * m[2, 1] - m[1, 1] * m[2, 0] );
+			return m[0, 0] * (m[1, 1] * m[2, 2] - m[1, 2] * m[2, 1])
+				 + m[0, 1] * (m[1, 2] * m[2, 0] - m[1, 0] * m[2, 2])
+				 + m[0, 2] * (m[1, 0] * m[2, 1] - m[1, 1] * m[2, 0]);
 		}
 
 		/// <summary>

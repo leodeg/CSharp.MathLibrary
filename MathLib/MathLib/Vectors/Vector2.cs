@@ -3,21 +3,43 @@ using System.Collections;
 
 namespace LeoDeg.Math.Vectors
 {
-    public struct Vector2
-    {
-        public static readonly Vector2 Up = new Vector2 (0, 1);
-        public static readonly Vector2 Down = new Vector2 (0, -1);
-        public static readonly Vector2 Left = new Vector2 (-1, 0);
-        public static readonly Vector2 Right = new Vector2 (1, 0);
+	public struct Vector2
+	{
+		/// <summary>
+		/// Vector2(0, 1)
+		/// </summary>
+		public static readonly Vector2 Up = new Vector2 (0, 1);
 
+		/// <summary>
+		/// Vector2(0, -1)
+		/// </summary>
+		public static readonly Vector2 Down = new Vector2 (0, -1);
+
+		/// <summary>
+		/// Vector2(-1, 0)
+		/// </summary>
+		public static readonly Vector2 Left = new Vector2 (-1, 0);
+
+		/// <summary>
+		/// Vector2(1, 0)
+		/// </summary>
+		public static readonly Vector2 Right = new Vector2 (1, 0);
+
+		/// <summary>
+		/// Vector2(0, 0)
+		/// </summary>
 		public static readonly Vector2 Zero = new Vector2 (0, 0);
+
+		/// <summary>
+		/// Vector2(1, 1)
+		/// </summary>
 		public static readonly Vector2 Identity = new Vector2 (1, 1);
 
 		public Vector2 (float x = 0, float y = 0)
-        {
-            this.x = x;
-            this.y = y;
-        }
+		{
+			this.x = x;
+			this.y = y;
+		}
 
 		public Vector2 (Vector2 vector)
 		{
@@ -38,302 +60,297 @@ namespace LeoDeg.Math.Vectors
 		}
 
 		public float this[int index]
-        {
-            get
-            {
-                if (index == 0) return x;
-                else if (index == 1) return y;
-                else throw new ArgumentOutOfRangeException ();
-            }
-            set
-            {
-                if (index == 0) x = value;
-                else if (index == 1) y = value;
-                else throw new ArgumentOutOfRangeException ();
-            }
-        }
+		{
+			get
+			{
+				if (index == 0) return x;
+				else if (index == 1) return y;
+				else throw new ArgumentOutOfRangeException ();
+			}
+			set
+			{
+				if (index == 0) x = value;
+				else if (index == 1) y = value;
+				else throw new ArgumentOutOfRangeException ();
+			}
+		}
 
-        #region Properties
+		#region Properties
 
-        public float x { get; set; }
-        public float y { get; set; }
+		public float x { get; set; }
+		public float y { get; set; }
 
-        /// <summary>
-        /// Return normalized vector.
-        /// </summary>
-        public Vector2 normalized => (this / magnitude);
+		/// <summary>
+		/// Return normalized vector.
+		/// </summary>
+		public Vector2 normalized { get { return this / magnitude; } }
 
-        /// <summary>
-        /// Return squared magnitude of this vector.
-        /// </summary>
-        public float magnitudeSquared => Dot (this, this);
+		/// <summary>
+		/// Return magnitude of this vector.
+		/// </summary>
+		public float magnitude { get { return Convert.ToSingle (System.Math.Sqrt (Dot (this, this))); } }
 
-        /// <summary>
-        /// Return magnitude of this vector.
-        /// </summary>
-        public float magnitude => Convert.ToSingle (System.Math.Sqrt (Dot (this, this)));
+		#endregion
 
-        #endregion
+		#region Dot Product
 
-        /// <summary>
-        /// Make vector a unit vector.
-        /// </summary>
-        public static Vector2 Normalize (Vector2 vector)
-        {
-            return vector / Magnitude (vector);
-        }
+		/// <summary>
+		/// Return dot product of two vectors.
+		/// </summary>
+		public static float Dot (Vector2 a, Vector2 b)
+		{
+			return (a.x * b.x) + (a.y * b.y);
+		}
 
-        #region Angle
+		/// <summary>
+		/// Return dot product of a two values.
+		/// </summary>
+		public static float Dot (float x, float y)
+		{
+			return (x * x) + (y * y);
+		}
 
-        /// <summary>
-        /// Return angle between two vectors.
-        /// </summary>
-        public static float GetAngle (Vector2 from, Vector2 to)
-        {
-            float magnitude = Magnitude (from) * Magnitude (to);
-            float dot = Dot (from, to);
-            return dot / magnitude;
-        }
+		/// <summary>
+		/// Return dot product of the current vector and a vector.
+		/// </summary>
+		public float Dot (Vector2 vector)
+		{
+			return (this.x * vector.x) + (this.y * vector.y);
+		}
 
-        /// <summary>
-        /// Check angle type: (0) is right angle, (1) is acute angle, (-1) is obtuse angle.
-        /// </summary>
-        /// <returns>
-        /// (0) - is right angle
-        /// (1) - is acute angle, 
-        /// (-1) - is obtuse angle.
-        /// </returns>
-        public static int GetAngleType (Vector2 from, Vector2 to)
-        {
-            float angle = GetAngle (from, to);
-            if (angle.Equals (0f)) return 0;
-            if (angle < 0) return -1;
-            return 1;
-        }
+		#endregion
 
-        /// <summary>
-        /// Check angle type: (0) is right angle, (1) is acute angle, (-1) is obtuse angle.
-        /// </summary>
-        /// /// <returns>
-        /// (0) - is right angle
-        /// (1) - is acute angle, 
-        /// (-1) - is obtuse angle.
-        /// </returns>
-        public static int GetAngleType (float angle)
-        {
-            if (angle.Equals (0f)) return 0;
-            if (angle < 0) return -1;
-            return 1;
-        }
+		#region Magnitude
 
-        #endregion
+		/// <summary>
+		/// Return magnitude/length of two vectors
+		/// </summary>
+		public static float Magnitude (Vector2 a, Vector2 b)
+		{
+			return Convert.ToSingle (System.Math.Sqrt (Dot (a, b)));
+		}
 
-        #region Magnitude
+		/// <summary>
+		/// Return magnitude/length of a vector.
+		/// </summary>
+		public static float Magnitude (Vector2 vector)
+		{
+			return Convert.ToSingle (System.Math.Sqrt (Dot (vector, vector)));
+		}
 
-        /// <summary>
-        /// Return magnitude (speed) of two vectors
-        /// </summary>
-        public static float Magnitude (Vector2 a, Vector2 b) => Convert.ToSingle (System.Math.Sqrt (Dot (a, b)));
+		/// <summary>
+		/// Return magnitude/length of a vector.
+		/// </summary>
+		public static float Magnitude (float x, float y)
+		{
+			return Convert.ToSingle (System.Math.Sqrt (Dot (x, y)));
+		}
 
-        /// <summary>
-        /// Return magnitude (speed) of a vector.
-        /// </summary>
-        public static float Magnitude (Vector2 vector) => Convert.ToSingle (System.Math.Sqrt (Dot (vector, vector)));
+		#endregion
 
-        #endregion
+		#region Normalize
 
-        #region Dot Product
+		/// <summary>
+		/// Return a unit vector.
+		/// </summary>
+		public static Vector2 Normalize (Vector2 vector)
+		{
+			return vector / Magnitude (vector);
+		}
 
-        /// <summary>
-        /// Return dot product of two vectors.
-        /// </summary>
-        public static float Dot (Vector2 a, Vector2 b)
-        {
-            return (a.x * b.x) + (a.y * b.y);
-        }
+		/// <summary>
+		/// Return a unit vector of the current vector.
+		/// </summary>
+		public Vector2 Normalize ()
+		{
+			return this / Magnitude (this);
+		}
 
-        /// <summary>
-        /// Return dot product of current vector and target vector.
-        /// </summary>
-        public float Dot (Vector2 targetVector)
-        {
-            return (this.x * targetVector.x) + (this.y * targetVector.y);
-        }
+		#endregion
 
-        /// <summary>
-        /// Return dot product of a two values.
-        /// </summary>
-        public static float Dot (float x, float y)
-        {
-            return (x * x) + (y * y);
-        }
+		#region Distance
 
-        #endregion
+		/// <summary>
+		/// Return distance between 'from' and 'to'.
+		/// </summary>
+		public static float Distance (Vector2 from, Vector2 to)
+		{
+			float distX = to.x - from.x;
+			float distY = to.y - from.y;
+			return Magnitude (distX, distY);
+		}
 
-        #region Projectile
+		/// <summary>
+		/// Return distance from current position and 'to'.
+		/// </summary>
+		public float Distance (Vector2 target)
+		{
+			float distX = this.x - target.x;
+			float distY = this.y - target.y;
+			return Magnitude (distX, distY);
+		}
 
-        /// <summary>
-        /// Make projection of vector a onto vector b.
-        /// <para>((a * b) / b^2) * b</para>
-        /// </summary>
-        public static Vector2 Project (Vector2 a, Vector2 b)
-        {
-            return b * (Dot (a, b) / Dot (b, b));
-        }
+		/// <summary>
+		/// Return direction vector between two vectors.
+		/// </summary>
+		public static Vector2 Direction (Vector2 from, Vector2 to)
+		{
+			return to - from;
+		}
 
-        /// <summary>
-        /// Make perpendicular vector from vector a to vector b.
-        /// <para>a - (((a * b) / b^2 ) * b)</para>
-        /// </summary>
-        public static Vector2 Reject (Vector2 a, Vector2 b)
-        {
-            return a - (b * (Dot (a, b) / Dot (b, b)));
-        }
+		/// <summary>
+		/// Return direction vector from current position to target.
+		/// </summary>
+		public Vector2 Direction (Vector2 target)
+		{
+			return new Vector2 (target.x - this.x, target.y - this.y);
+		}
 
-        #endregion
+		#endregion
 
-        #region Distance
+		#region Angle
 
-        /// <summary>
-        /// Return squared distance between 'from' and 'to'.
-        /// </summary>
-        public static float DistanceSquared (Vector2 from, Vector2 to)
-        {
-            float distX = from.x - to.x;
-            float distY = from.y - to.y;
-            return Dot (distX, distY);
-        }
+		/// <summary>
+		/// Return angle between two vectors.
+		/// </summary>
+		public static float GetAngle (Vector2 from, Vector2 to)
+		{
+			float magnitude = Magnitude (from) * Magnitude (to);
+			float dot = Dot (from, to);
+			return dot / magnitude;
+		}
 
-        /// <summary>
-        /// Return distance from current position to target.
-        /// </summary>
-        public float DistanceSquared (Vector2 target)
-        {
-            float distX = this.x - target.x;
-            float distY = this.y - target.y;
-            return Dot (distX, distY);
-        }
+		/// <summary>
+		/// Check angle type: (0) is right angle, (1) is acute angle, (-1) is obtuse angle.
+		/// </summary>
+		/// <returns>
+		/// (0) - is right angle
+		/// (1) - is acute angle, 
+		/// (-1) - is obtuse angle.
+		/// </returns>
+		public static int GetAngleType (Vector2 from, Vector2 to)
+		{
+			float angle = GetAngle (from, to);
+			if (angle.Equals (0f)) return 0;
+			if (angle < 0) return -1;
+			return 1;
+		}
 
-        /// <summary>
-        /// Return distance between 'from' and 'to'.
-        /// </summary>
-        public static float Distance (Vector2 from, Vector2 to)
-        {
-            float distX = to.x - from.x;
-            float distY = to.y - from.y;
-            return Convert.ToSingle (System.Math.Sqrt (Dot (distX, distY)));
-        }
+		/// <summary>
+		/// Check angle type: (0) is right angle, (1) is acute angle, (-1) is obtuse angle.
+		/// </summary>
+		/// /// <returns>
+		/// (0) - is right angle
+		/// (1) - is acute angle, 
+		/// (-1) - is obtuse angle.
+		/// </returns>
+		public static int GetAngleType (float angle)
+		{
+			if (angle.Equals (0f)) return 0;
+			if (angle < 0) return -1;
+			return 1;
+		}
 
-        /// <summary>
-        /// Return distance from current position and 'to'.
-        /// </summary>
-        public float Distance (Vector2 target)
-        {
-            float distX = this.x - target.x;
-            float distY = this.y - target.y;
-            return Convert.ToSingle (System.Math.Sqrt (Dot (distX, distY)));
-        }
+		#endregion
 
-        /// <summary>
-        /// Return direction vector between two vectors.
-        /// </summary>
-        public static Vector2 Direction (Vector2 from, Vector2 to)
-        {
-            return to - from;
-        }
+		#region Projectile
 
-        /// <summary>
-        /// Return direction vector from current position to target.
-        /// </summary>
-        public Vector2 Direction (Vector2 target)
-        {
+		/// <summary>
+		/// Make projection of vector a onto vector b.
+		/// <para>((a * b) / b^2) * b</para>
+		/// </summary>
+		public static Vector2 Project (Vector2 a, Vector2 b)
+		{
+			return b * (Dot (a, b) / Dot (b, b));
+		}
 
-            return new Vector2 (target.x - this.x, target.y - this.y);
-        }
+		/// <summary>
+		/// Make perpendicular vector from vector a to vector b.
+		/// <para>a - (((a * b) / b^2 ) * b)</para>
+		/// </summary>
+		public static Vector2 Reject (Vector2 a, Vector2 b)
+		{
+			return a - (b * (Dot (a, b) / Dot (b, b)));
+		}
 
-        #endregion
+		#endregion
 
-        #region Override Methods
+		#region Override Methods
 
-        /// <summary>
-        /// Compares the passed vector to this one for equality.
-        /// </summary>
-        public override bool Equals (object obj)
-        {
-            if (ReferenceEquals (null, obj)) return false;
-            if (ReferenceEquals (this, obj)) return true;
-            if (obj.GetType () != this.GetType ()) return false;
+		/// <summary>
+		/// Compares the passed vector to this one for equality.
+		/// </summary>
+		public override bool Equals (object obj)
+		{
+			if (ReferenceEquals (null, obj)) return false;
+			if (ReferenceEquals (this, obj)) return true;
+			if (obj.GetType () != this.GetType ()) return false;
 
-            return obj is Vector2 && this.Equals ((Vector2)obj);
-        }
+			return obj is Vector2 && this.Equals ((Vector2)obj);
+		}
 
-        /// <summary>
-        /// Compares the passed vector to this one for equality.
-        /// </summary>
-        public bool Equals (Vector2 other)
-        {
-            return x.Equals (other.x) && y.Equals (other.y);
-        }
+		/// <summary>
+		/// Compares the passed vector to this one for equality.
+		/// </summary>
+		public bool Equals (Vector2 other)
+		{
+			return x.Equals (other.x) && y.Equals (other.y);
+		}
 
-        /// <summary>
-        /// Return the hash code for this instance.
-        /// </summary>
-        public override int GetHashCode ()
-        {
-            return x.GetHashCode () ^ y.GetHashCode ();
-        }
+		/// <summary>
+		/// Return the hash code for this instance.
+		/// </summary>
+		public override int GetHashCode ()
+		{
+			return x.GetHashCode () ^ y.GetHashCode ();
+		}
 
-        #endregion
+		#endregion
 
-        #region Operators Overloading
+		#region Operators Overloading
 
-        public static Vector2 operator + (Vector2 a, Vector2 b)
-        {
-            return new Vector2 (a.x + b.x, a.y + b.y);
-        }
+		public static Vector2 operator + (Vector2 a, Vector2 b)
+		{
+			return new Vector2 (a.x + b.x, a.y + b.y);
+		}
 
-        public static Vector2 operator - (Vector2 a, Vector2 b)
-        {
-            return new Vector2 (a.x - b.x, a.y - b.y);
-        }
+		public static Vector2 operator - (Vector2 a, Vector2 b)
+		{
+			return new Vector2 (a.x - b.x, a.y - b.y);
+		}
 
-        public static Vector2 operator - (Vector2 a)
-        {
-            return new Vector2 (-a.x, -a.y);
-        }
+		public static Vector2 operator - (Vector2 a)
+		{
+			return new Vector2 (-a.x, -a.y);
+		}
 
-        public static Vector2 operator * (Vector2 a, float scalar)
-        {
-            return new Vector2 (a.x * scalar, a.y * scalar);
-        }
+		public static Vector2 operator * (Vector2 a, float scalar)
+		{
+			return new Vector2 (a.x * scalar, a.y * scalar);
+		}
 
-        public static Vector2 operator * (float scalar, Vector2 a)
-        {
-            return new Vector2 (a.x * scalar, a.y * scalar);
-        }
+		public static Vector2 operator * (float scalar, Vector2 a)
+		{
+			return new Vector2 (a.x * scalar, a.y * scalar);
+		}
 
-        public static Vector2 operator * (Vector2 a, Vector2 b)
-        {
-            return new Vector2 ((a.x * b.x) + (a.y * b.x),
-                                (a.x * b.y) + (a.y * b.y));
-        }
 
-        public static Vector2 operator / (Vector2 a, float scalar)
-        {
-            scalar = 1f / scalar;
-            return new Vector2 (a.x * scalar, a.y * scalar);
-        }
+		public static Vector2 operator / (Vector2 a, float scalar)
+		{
+			scalar = 1f / scalar;
+			return new Vector2 (a.x * scalar, a.y * scalar);
+		}
 
-        public static bool operator == (Vector2 a, Vector2 b)
-        {
-            return a.Equals (b);
-        }
+		public static bool operator == (Vector2 a, Vector2 b)
+		{
+			return a.Equals (b);
+		}
 
-        public static bool operator != (Vector2 a, Vector2 b)
-        {
-            return !a.Equals (b);
-        }
+		public static bool operator != (Vector2 a, Vector2 b)
+		{
+			return !a.Equals (b);
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

@@ -1,10 +1,13 @@
 ﻿using System;
+using System.CodeDom;
 using LeoDeg.Math.Matrices;
 
 namespace LeoDeg.Math.Vectors
 {
-	public struct Vector3
+	public class Vector3
 	{
+		#region Static Fields
+
 		public static readonly Vector3 Up = new Vector3 (0, 1, 0);
 		public static readonly Vector3 Down = new Vector3 (0, -1, 0);
 		public static readonly Vector3 Left = new Vector3 (-1, 0, 0);
@@ -14,6 +17,10 @@ namespace LeoDeg.Math.Vectors
 
 		public static readonly Vector3 Zero = new Vector3 (0, 0, 0);
 		public static readonly Vector3 Identity = new Vector3 (1, 1, 1);
+
+		#endregion
+
+		#region Constructors
 
 		public Vector3 (float x = 0, float y = 0, float z = 0)
 		{
@@ -34,6 +41,9 @@ namespace LeoDeg.Math.Vectors
 
 		public Vector3 (Vector3 vector)
 		{
+			if (vector == null)
+				throw new ArgumentNullException ();
+
 			x = vector.x;
 			y = vector.y;
 			z = vector.z;
@@ -42,12 +52,14 @@ namespace LeoDeg.Math.Vectors
 		public Vector3 (float[] vector3)
 		{
 			if (vector3.Length != 3)
-				throw new ArgumentOutOfRangeException ();
+				throw new InvalidOperationException ("Vector3::Error:: The array length not equal to 3.");
 
 			x = vector3[0];
 			y = vector3[1];
 			z = vector3[2];
 		}
+
+		#endregion
 
 		public float this[int index]
 		{
@@ -55,31 +67,20 @@ namespace LeoDeg.Math.Vectors
 			{
 				switch (index)
 				{
-					case 0:
-						return x;
-					case 1:
-						return y;
-					case 2:
-						return z;
-					default:
-						throw new ArgumentOutOfRangeException ();
+					case 0: return x;
+					case 1: return y;
+					case 2: return z;
+					default: throw new ArgumentOutOfRangeException ();
 				}
 			}
 			set
 			{
 				switch (index)
 				{
-					case 0:
-						x = value;
-						break;
-					case 1:
-						y = value;
-						break;
-					case 2:
-						z = value;
-						break;
-					default:
-						throw new ArgumentOutOfRangeException ();
+					case 0: x = value; break;
+					case 1: y = value; break;
+					case 2: z = value; break;
+					default: throw new ArgumentOutOfRangeException ();
 				}
 			}
 		}
@@ -109,55 +110,6 @@ namespace LeoDeg.Math.Vectors
 		{
 			return vector / Magnitude (vector);
 		}
-
-		#region Angle
-
-		/// <summary>
-		/// Return angle between two vectors.
-		/// </summary>
-		public static float GetAngle (Vector3 from, Vector3 to)
-		{
-			float magnitude = Magnitude (from) * Magnitude (to);
-			float dot = Dot (from, to);
-			return dot / magnitude;
-		}
-
-		/// <summary>
-		/// Check angle type: (0) is right angle, (1) is acute angle, (-1) is obtuse angle.
-		/// </summary>
-		/// <returns>
-		/// (0) - is right angle
-		/// (1) - is acute angle, 
-		/// (-1) - is obtuse angle.
-		/// </returns>
-		public static int GetAngleType (Vector3 from, Vector3 to)
-		{
-			float angle = GetAngle (from, to);
-			if (angle.Equals (0f))
-				return 0;
-			if (angle < 0)
-				return -1;
-			return 1;
-		}
-
-		/// <summary>
-		/// Check angle type: (0) is right angle, (1) is acute angle, (-1) is obtuse angle.
-		/// </summary>
-		/// /// <returns>
-		/// (0) - is right angle
-		/// (1) - is acute angle, 
-		/// (-1) - is obtuse angle.
-		/// </returns>
-		public static int GetAngleType (float angle)
-		{
-			if (angle.Equals (0f))
-				return 0;
-			if (angle < 0)
-				return -1;
-			return 1;
-		}
-
-		#endregion
 
 		#region Dot and Cross products
 
@@ -221,28 +173,6 @@ namespace LeoDeg.Math.Vectors
 
 		#endregion
 
-		#region Projection
-
-		/// <summary>
-		/// Make projection of vector a onto vector b.
-		/// <para>((a * b) / b^2) * b</para>
-		/// </summary>
-		public static Vector3 Project (Vector3 a, Vector3 b)
-		{
-			return b * (Dot (a, b) / Dot (b, b));
-		}
-
-		/// <summary>
-		/// Make perpendicular vector from vector a to vector b.
-		/// <para>a - (((a * b) / b^2 ) * b)</para>
-		/// </summary>
-		public static Vector3 Reject (Vector3 a, Vector3 b)
-		{
-			return a - (b * (Dot (a, b) / Dot (b, b)));
-		}
-
-		#endregion
-
 		#region Distance
 
 		/// <summary>
@@ -275,6 +205,101 @@ namespace LeoDeg.Math.Vectors
 		public static Vector3 Direction (Vector3 from, Vector3 to)
 		{
 			return to - from;
+		}
+
+		#endregion
+
+		#region Angle
+
+		/// <summary>
+		/// Return angle between two vectors.
+		/// </summary>
+		public static float GetAngle (Vector3 from, Vector3 to)
+		{
+			float magnitude = Magnitude (from) * Magnitude (to);
+			float dot = Dot (from, to);
+			return dot / magnitude;
+		}
+
+		/// <summary>
+		/// Check angle type: (0) is right angle, (1) is acute angle, (-1) is obtuse angle.
+		/// </summary>
+		/// <returns>
+		/// (0) - is right angle
+		/// (1) - is acute angle, 
+		/// (-1) - is obtuse angle.
+		/// </returns>
+		public static int GetAngleType (Vector3 from, Vector3 to)
+		{
+			float angle = GetAngle (from, to);
+			if (angle.Equals (0f))
+				return 0;
+			if (angle < 0)
+				return -1;
+			return 1;
+		}
+
+		/// <summary>
+		/// Check angle type: (0) is right angle, (1) is acute angle, (-1) is obtuse angle.
+		/// </summary>
+		/// /// <returns>
+		/// (0) - is right angle
+		/// (1) - is acute angle, 
+		/// (-1) - is obtuse angle.
+		/// </returns>
+		public static int GetAngleType (float angle)
+		{
+			if (angle.Equals (0f))
+				return 0;
+			if (angle < 0)
+				return -1;
+			return 1;
+		}
+
+		#endregion
+
+		#region Projection
+
+		/// <summary>
+		/// Make projection of vector a onto vector b.
+		/// <para>((a * b) / b^2) * b</para>
+		/// </summary>
+		public static Vector3 Project (Vector3 a, Vector3 b)
+		{
+			return b * (Dot (a, b) / Dot (b, b));
+		}
+
+		/// <summary>
+		/// Make perpendicular vector from vector a to vector b.
+		/// <para>a - (((a * b) / b^2 ) * b)</para>
+		/// </summary>
+		public static Vector3 Reject (Vector3 a, Vector3 b)
+		{
+			return a - (b * (Dot (a, b) / Dot (b, b)));
+		}
+
+		#endregion
+
+		#region Equals
+
+		public override bool Equals (object obj)
+		{
+			if (ReferenceEquals (null, obj)) return false;
+			if (ReferenceEquals (this, obj)) return true;
+			if (obj.GetType () != this.GetType ()) return false;
+
+			return obj is Vector3 && this.Equals ((Vector3)obj);
+		}
+
+		/// <summary>
+		/// Compares the passed vector to this one for equality.
+		/// </summary>
+		public bool Equals (Vector3 other)
+		{
+			if (ReferenceEquals (null, other)) return false;
+			if (ReferenceEquals (this, other)) return true;
+
+			return x.Equals (other.x) && y.Equals (other.y) && z.Equals (other.z);
 		}
 
 		#endregion
@@ -320,6 +345,16 @@ namespace LeoDeg.Math.Vectors
 		{
 			scalar = 1.0f / scalar;
 			return new Vector3 (a.x * scalar, a.y * scalar, a.z * scalar);
+		}
+
+		public static bool operator == (Vector3 a, Vector3 b)
+		{
+			return a.Equals (b);
+		}
+
+		public static bool operator != (Vector3 a, Vector3 b)
+		{
+			return !a.Equals (b);
 		}
 
 		#endregion

@@ -3,7 +3,7 @@ using NUnit.Framework;
 using LeoDeg.Math.Vectors;
 using NUnit.Framework.Constraints;
 
-namespace LeoDeg.MathLibUnitTests
+namespace LeoDeg.Math.Vector2Tests
 {
 	[TestFixture]
 	public class Vector2Tests

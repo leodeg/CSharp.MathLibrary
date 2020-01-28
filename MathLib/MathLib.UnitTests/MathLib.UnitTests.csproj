@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Matrices\Matrice2Tests.cs" />
+    <Compile Include="Matrices\Matrice3Tests.cs" />
     <Compile Include="Vectors\Vector2Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Vectors\Vector3Tests.cs" />

@@ -6,21 +6,14 @@ namespace LeoDeg.Math.Vectors
 {
 	public class Vector3
 	{
-		#region Static Fields
-
 		public static readonly Vector3 Up = new Vector3 (0, 1, 0);
 		public static readonly Vector3 Down = new Vector3 (0, -1, 0);
 		public static readonly Vector3 Left = new Vector3 (-1, 0, 0);
 		public static readonly Vector3 Right = new Vector3 (1, 0, 0);
 		public static readonly Vector3 Forward = new Vector3 (0, 0, 1);
 		public static readonly Vector3 Backward = new Vector3 (0, 0, -1);
-
 		public static readonly Vector3 Zero = new Vector3 (0, 0, 0);
 		public static readonly Vector3 Identity = new Vector3 (1, 1, 1);
-
-		#endregion
-
-		#region Constructors
 
 		public Vector3 (float x = 0, float y = 0, float z = 0)
 		{
@@ -59,8 +52,6 @@ namespace LeoDeg.Math.Vectors
 			z = vector3[2];
 		}
 
-		#endregion
-
 		public float this[int index]
 		{
 			get
@@ -85,8 +76,6 @@ namespace LeoDeg.Math.Vectors
 			}
 		}
 
-		#region Properties
-
 		public float x { get; set; }
 		public float y { get; set; }
 		public float z { get; set; }
@@ -101,8 +90,6 @@ namespace LeoDeg.Math.Vectors
 		/// </summary>
 		public float magnitude => Magnitude (this);
 
-		#endregion
-
 		/// <summary>
 		/// Make vector a unit vector.
 		/// </summary>
@@ -111,35 +98,21 @@ namespace LeoDeg.Math.Vectors
 			return vector / Magnitude (vector);
 		}
 
-		#region Dot and Cross products
-
-		/// <summary>
-		/// Return dot product of two vectors.
-		/// </summary>
 		public static float Dot (Vector3 a, Vector3 b)
 		{
 			return (a.x * b.x) + (a.y * b.y) + (a.z * b.z);
 		}
 
-		/// <summary>
-		/// Return dot product of the vector (v).
-		/// </summary>
 		public static float Dot (Vector3 v)
 		{
 			return (v.x * v.x) + (v.y * v.y) + (v.z * v.z);
 		}
 
-		/// <summary>
-		/// Return dot product of three values.
-		/// </summary>
 		public static float Dot (float x, float y, float z)
 		{
 			return (x * x) + (y * y) + (z * z);
 		}
 
-		/// <summary>
-		/// Return cross product between two vectors.
-		/// </summary>
 		public static Vector3 Cross (Vector3 from, Vector3 to)
 		{
 			return new Vector3
@@ -151,33 +124,17 @@ namespace LeoDeg.Math.Vectors
 			);
 		}
 
-		#endregion
-
-		#region Magnitude
-
-		/// <summary>
-		/// Return magnitude (speed) of two vectors
-		/// </summary>
 		public static float Magnitude (Vector3 a, Vector3 b)
 		{
 			return Convert.ToSingle (System.Math.Sqrt (Dot (a, b)));
 		}
 
-		/// <summary>
-		/// Return magnitude (speed) of a vector.
-		/// </summary>
+
 		public static float Magnitude (Vector3 v)
 		{
 			return Convert.ToSingle (System.Math.Sqrt (Dot (v)));
 		}
 
-		#endregion
-
-		#region Distance
-
-		/// <summary>
-		/// Return distance between 'from' and 'to'.
-		/// </summary>
 		public static float Distance (Vector3 from, Vector3 to)
 		{
 			float distX = to.x - from.x;
@@ -187,9 +144,7 @@ namespace LeoDeg.Math.Vectors
 			return Convert.ToSingle (System.Math.Sqrt (Dot (distX, distY, distZ)));
 		}
 
-		/// <summary>
-		/// Return distance from current position and 'to'.
-		/// </summary>
+
 		public float Distance (Vector3 to)
 		{
 			float distX = to.x - this.x;
@@ -199,17 +154,10 @@ namespace LeoDeg.Math.Vectors
 			return Convert.ToSingle (System.Math.Sqrt (Dot (distX, distY, distZ)));
 		}
 
-		/// <summary>
-		/// Return direction vector between two vectors.
-		/// </summary>
 		public static Vector3 Direction (Vector3 from, Vector3 to)
 		{
 			return to - from;
 		}
-
-		#endregion
-
-		#region Angle
 
 		/// <summary>
 		/// Return angle in degrees between two vectors.
@@ -246,10 +194,6 @@ namespace LeoDeg.Math.Vectors
 			return 1;
 		}
 
-		#endregion
-
-		#region Projection
-
 		/// <summary>
 		/// Make projection of vector a onto vector b.
 		/// <para>((a * b) / b^2) * b</para>
@@ -267,10 +211,6 @@ namespace LeoDeg.Math.Vectors
 		{
 			return a - (b * (Dot (a, b) / Dot (b, b)));
 		}
-
-		#endregion
-
-		#region Equals
 
 		public override bool Equals (object obj)
 		{
@@ -291,10 +231,6 @@ namespace LeoDeg.Math.Vectors
 
 			return x.Equals (other.x) && y.Equals (other.y) && z.Equals (other.z);
 		}
-
-		#endregion
-
-		#region Operators Overloading
 
 		public static Vector3 operator + (Vector3 a, Vector3 b)
 		{
@@ -346,7 +282,5 @@ namespace LeoDeg.Math.Vectors
 		{
 			return !a.Equals (b);
 		}
-
-		#endregion
 	}
 }

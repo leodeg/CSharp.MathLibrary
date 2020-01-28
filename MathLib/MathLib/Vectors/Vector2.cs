@@ -5,34 +5,11 @@ namespace LeoDeg.Math.Vectors
 {
 	public struct Vector2
 	{
-		/// <summary>
-		/// Vector2(0, 1)
-		/// </summary>
 		public static readonly Vector2 Up = new Vector2 (0, 1);
-
-		/// <summary>
-		/// Vector2(0, -1)
-		/// </summary>
 		public static readonly Vector2 Down = new Vector2 (0, -1);
-
-		/// <summary>
-		/// Vector2(-1, 0)
-		/// </summary>
 		public static readonly Vector2 Left = new Vector2 (-1, 0);
-
-		/// <summary>
-		/// Vector2(1, 0)
-		/// </summary>
 		public static readonly Vector2 Right = new Vector2 (1, 0);
-
-		/// <summary>
-		/// Vector2(0, 0)
-		/// </summary>
 		public static readonly Vector2 Zero = new Vector2 (0, 0);
-
-		/// <summary>
-		/// Vector2(1, 1)
-		/// </summary>
 		public static readonly Vector2 Identity = new Vector2 (1, 1);
 
 		public Vector2 (float x = 0, float y = 0)
@@ -75,80 +52,41 @@ namespace LeoDeg.Math.Vectors
 			}
 		}
 
-		#region Properties
-
 		public float x { get; set; }
 		public float y { get; set; }
-
-		/// <summary>
-		/// Return normalized vector.
-		/// </summary>
 		public Vector2 normalized { get { return this / magnitude; } }
-
-		/// <summary>
-		/// Return magnitude of this vector.
-		/// </summary>
 		public float magnitude { get { return Convert.ToSingle (System.Math.Sqrt (Dot (this, this))); } }
 
-		#endregion
 
-		#region Dot Product
-
-		/// <summary>
-		/// Return dot product of two vectors.
-		/// </summary>
 		public static float Dot (Vector2 a, Vector2 b)
 		{
 			return (a.x * b.x) + (a.y * b.y);
 		}
 
-		/// <summary>
-		/// Return dot product of a two values.
-		/// </summary>
 		public static float Dot (float x, float y)
 		{
 			return (x * x) + (y * y);
 		}
 
-		/// <summary>
-		/// Return dot product of the current vector and a vector.
-		/// </summary>
 		public float Dot (Vector2 vector)
 		{
 			return (this.x * vector.x) + (this.y * vector.y);
 		}
 
-		#endregion
-
-		#region Magnitude
-
-		/// <summary>
-		/// Return magnitude/length of two vectors
-		/// </summary>
 		public static float Magnitude (Vector2 a, Vector2 b)
 		{
 			return Convert.ToSingle (System.Math.Sqrt (Dot (a, b)));
 		}
 
-		/// <summary>
-		/// Return magnitude/length of a vector.
-		/// </summary>
 		public static float Magnitude (Vector2 vector)
 		{
 			return Convert.ToSingle (System.Math.Sqrt (Dot (vector, vector)));
 		}
 
-		/// <summary>
-		/// Return magnitude/length of a vector.
-		/// </summary>
 		public static float Magnitude (float x, float y)
 		{
 			return Convert.ToSingle (System.Math.Sqrt (Dot (x, y)));
 		}
-
-		#endregion
-
-		#region Normalize
 
 		/// <summary>
 		/// Return a unit vector.
@@ -166,13 +104,6 @@ namespace LeoDeg.Math.Vectors
 			return this / Magnitude (this);
 		}
 
-		#endregion
-
-		#region Distance
-
-		/// <summary>
-		/// Return distance between 'from' and 'to'.
-		/// </summary>
 		public static float Distance (Vector2 from, Vector2 to)
 		{
 			float distX = to.x - from.x;
@@ -180,9 +111,6 @@ namespace LeoDeg.Math.Vectors
 			return Magnitude (distX, distY);
 		}
 
-		/// <summary>
-		/// Return distance from current position and 'to'.
-		/// </summary>
 		public float Distance (Vector2 target)
 		{
 			float distX = this.x - target.x;
@@ -190,30 +118,17 @@ namespace LeoDeg.Math.Vectors
 			return Magnitude (distX, distY);
 		}
 
-		/// <summary>
-		/// Return direction vector between two vectors.
-		/// </summary>
 		public static Vector2 Direction (Vector2 from, Vector2 to)
 		{
 			return to - from;
 		}
 
-		/// <summary>
-		/// Return direction vector from current position to target.
-		/// </summary>
 		public Vector2 Direction (Vector2 target)
 		{
 			return new Vector2 (target.x - this.x, target.y - this.y);
 		}
 
-		#endregion
-
-		#region Angle
-
-		/// <summary>
-		/// Return angle between two vectors.
-		/// </summary>
-		public static float GetAngle (Vector2 from, Vector2 to)
+		public static float Angle (Vector2 from, Vector2 to)
 		{
 			float magnitude = Magnitude (from) * Magnitude (to);
 			float dot = Dot (from, to);
@@ -228,32 +143,13 @@ namespace LeoDeg.Math.Vectors
 		/// (1) - is acute angle, 
 		/// (-1) - is obtuse angle.
 		/// </returns>
-		public static int GetAngleType (Vector2 from, Vector2 to)
+		public static int AngleType (Vector2 from, Vector2 to)
 		{
-			float angle = GetAngle (from, to);
+			float angle = Angle (from, to);
 			if (angle.Equals (0f)) return 0;
 			if (angle < 0) return -1;
 			return 1;
 		}
-
-		/// <summary>
-		/// Check angle type: (0) is right angle, (1) is acute angle, (-1) is obtuse angle.
-		/// </summary>
-		/// /// <returns>
-		/// (0) - is right angle
-		/// (1) - is acute angle, 
-		/// (-1) - is obtuse angle.
-		/// </returns>
-		public static int GetAngleType (float angle)
-		{
-			if (angle.Equals (0f)) return 0;
-			if (angle < 0) return -1;
-			return 1;
-		}
-
-		#endregion
-
-		#region Projectile
 
 		/// <summary>
 		/// Make projection of vector a onto vector b.
@@ -273,13 +169,6 @@ namespace LeoDeg.Math.Vectors
 			return a - (b * (Dot (a, b) / Dot (b, b)));
 		}
 
-		#endregion
-
-		#region Override Methods
-
-		/// <summary>
-		/// Compares the passed vector to this one for equality.
-		/// </summary>
 		public override bool Equals (object obj)
 		{
 			if (ReferenceEquals (null, obj)) return false;
@@ -289,25 +178,15 @@ namespace LeoDeg.Math.Vectors
 			return obj is Vector2 && this.Equals ((Vector2)obj);
 		}
 
-		/// <summary>
-		/// Compares the passed vector to this one for equality.
-		/// </summary>
 		public bool Equals (Vector2 other)
 		{
 			return x.Equals (other.x) && y.Equals (other.y);
 		}
 
-		/// <summary>
-		/// Return the hash code for this instance.
-		/// </summary>
 		public override int GetHashCode ()
 		{
 			return x.GetHashCode () ^ y.GetHashCode ();
 		}
-
-		#endregion
-
-		#region Operators Overloading
 
 		public static Vector2 operator + (Vector2 a, Vector2 b)
 		{
@@ -350,7 +229,5 @@ namespace LeoDeg.Math.Vectors
 		{
 			return !a.Equals (b);
 		}
-
-		#endregion
 	}
 }

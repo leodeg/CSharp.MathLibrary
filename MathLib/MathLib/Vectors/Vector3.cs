@@ -222,6 +222,15 @@ namespace LeoDeg.Math.Vectors
 		}
 
 		/// <summary>
+		/// Return angle in rad between two vectors.
+		/// </summary>
+		public static float AngleRad (Vector3 a, Vector3 b)
+		{
+			float angle = Dot (a, b) / (a.magnitude * b.magnitude);
+			return Convert.ToSingle (System.Math.Acos (angle));
+		}
+
+		/// <summary>
 		/// Check angle type: (0) is right angle, (1) is acute angle, (-1) is obtuse angle.
 		/// </summary>
 		/// <returns>

@@ -172,8 +172,17 @@ namespace LeoDeg.Math.Vector3Tests
 		[Test ()]
 		public void Angle_GivenTwoVectors_ReturnAngleBetweenVectors ()
 		{
-			Assert.AreEqual (90f, Vector3.Angle (new Vector3 (1,0,0), new Vector3 (0, 1, 0)));
-			Assert.AreEqual (45f, Vector3.Angle (new Vector3 (1,0,0), new Vector3 (1, 1, 0)));
+			Assert.AreEqual (90f, Vector3.Angle (new Vector3 (1, 0, 0), new Vector3 (0, 1, 0)));
+			Assert.AreEqual (45f, Vector3.Angle (new Vector3 (1, 0, 0), new Vector3 (1, 1, 0)));
+		}
+
+		[Test ()]
+		public void AngleRad_GivenTwoVectors_ReturnAngleBetweenVectors ()
+		{
+			float rad90 = 1.5707963267948966f;
+			float rad45 = 0.7853981633974484f;
+			Assert.AreEqual (rad90, Vector3.AngleRad (new Vector3 (1, 0, 0), new Vector3 (0, 1, 0)));
+			Assert.AreEqual (rad45, Vector3.AngleRad (new Vector3 (1, 0, 0), new Vector3 (1, 1, 0)));
 		}
 
 		[Test ()]

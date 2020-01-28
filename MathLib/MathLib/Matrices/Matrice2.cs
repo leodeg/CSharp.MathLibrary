@@ -4,7 +4,7 @@ using LeoDeg.Math.Vectors;
 
 namespace LeoDeg.Math.Matrices
 {
-	public struct Matrice2 : IEnumerable
+	public class Matrice2 : IEnumerable
 	{
 		private float[,] matrix;
 
@@ -54,6 +54,11 @@ namespace LeoDeg.Math.Matrices
 		/// Return zero matrix (0,0,0,0).
 		/// </summary>
 		public Matrice2 zero => new Matrice2 (0f, 0f, 0f, 0f);
+
+		/// <summary>
+		/// Return identity matrix (1,1,1,1).
+		/// </summary>
+		public Matrice2 identity => new Matrice2 (1f, 1f, 1f, 1f);
 
 		/// <summary>
 		/// Return true if the current matrix is diagonal, otherwise return false.
@@ -194,6 +199,11 @@ namespace LeoDeg.Math.Matrices
 				a[1, 0] - b[1, 0],
 				a[1, 1] - b[1, 1]
 			);
+		}
+
+		public static Matrice2 operator - (Matrice2 a)
+		{
+			return new Matrice2 (-a[0, 0], -a[0, 1], -a[1, 0], -a[1, 1]);
 		}
 
 		public static Matrice2 operator * (Matrice2 a, Matrice2 b)

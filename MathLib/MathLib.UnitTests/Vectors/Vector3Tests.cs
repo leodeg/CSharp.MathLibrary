@@ -2,7 +2,7 @@
 using LeoDeg.Math.Vectors;
 using System;
 
-namespace LeoDeg.Math.Vector3Tests
+namespace LeoDeg.Math.Vectors
 {
 	[TestFixture]
 	public class Vector3Tests

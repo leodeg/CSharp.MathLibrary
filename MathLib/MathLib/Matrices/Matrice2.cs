@@ -167,7 +167,7 @@ namespace LeoDeg.Math.Matrices
 
 		public override int GetHashCode ()
 		{
-			return base.GetHashCode ();
+			return matrix.GetHashCode () + this.GetType ().GetHashCode ();
 		}
 
 		#endregion

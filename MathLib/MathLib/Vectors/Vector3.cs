@@ -212,13 +212,13 @@ namespace LeoDeg.Math.Vectors
 		#region Angle
 
 		/// <summary>
-		/// Return angle between two vectors.
+		/// Return angle in degrees between two vectors.
 		/// </summary>
-		public static float GetAngle (Vector3 from, Vector3 to)
+		public static float Angle (Vector3 a, Vector3 b)
 		{
-			float magnitude = Magnitude (from) * Magnitude (to);
-			float dot = Dot (from, to);
-			return dot / magnitude;
+			float angle = Dot (a, b) / (a.magnitude * b.magnitude);
+			double toDegrees = 180 / System.Math.PI;
+			return Convert.ToSingle (System.Math.Acos (angle) * toDegrees);
 		}
 
 		/// <summary>
@@ -229,30 +229,11 @@ namespace LeoDeg.Math.Vectors
 		/// (1) - is acute angle, 
 		/// (-1) - is obtuse angle.
 		/// </returns>
-		public static int GetAngleType (Vector3 from, Vector3 to)
+		public static int AngleType (Vector3 a, Vector3 b)
 		{
-			float angle = GetAngle (from, to);
-			if (angle.Equals (0f))
-				return 0;
-			if (angle < 0)
-				return -1;
-			return 1;
-		}
-
-		/// <summary>
-		/// Check angle type: (0) is right angle, (1) is acute angle, (-1) is obtuse angle.
-		/// </summary>
-		/// /// <returns>
-		/// (0) - is right angle
-		/// (1) - is acute angle, 
-		/// (-1) - is obtuse angle.
-		/// </returns>
-		public static int GetAngleType (float angle)
-		{
-			if (angle.Equals (0f))
-				return 0;
-			if (angle < 0)
-				return -1;
+			float angle = Dot (a, b);
+			if (angle == 0) return 0;
+			if (angle < 0) return -1;
 			return 1;
 		}
 

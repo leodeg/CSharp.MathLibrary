@@ -131,7 +131,7 @@ namespace LeoDeg.Math.Vector3Tests
 		[Test]
 		public void Cross_GivenTwoVectors_ReturnOrthogonalVectorToThisBoth ()
 		{
-			Vector3 actual = Vector3.Cross (new Vector3 (2,5,6), new Vector3 (6, 5, 2));
+			Vector3 actual = Vector3.Cross (new Vector3 (2, 5, 6), new Vector3 (6, 5, 2));
 			Assert.AreEqual (new Vector3 (-20, 32, -20), actual);
 		}
 
@@ -167,6 +167,33 @@ namespace LeoDeg.Math.Vector3Tests
 			);
 
 			Assert.AreEqual (expectedVector, Vector3.Normalize (new Vector3 (5, 8)));
+		}
+
+		[Test ()]
+		public void Angle_GivenTwoVectors_ReturnAngleBetweenVectors ()
+		{
+			Assert.AreEqual (90f, Vector3.Angle (new Vector3 (1,0,0), new Vector3 (0, 1, 0)));
+			Assert.AreEqual (45f, Vector3.Angle (new Vector3 (1,0,0), new Vector3 (1, 1, 0)));
+		}
+
+		[Test ()]
+		public void AngleType_GivenTwoVectors_WhenAngleIsAcute_ReturnPositiveValue ()
+		{
+			Assert.AreEqual (1, Vector3.AngleType (new Vector3 (1, 1, 0), new Vector3 (0, 1, 0)));
+			Assert.AreEqual (1, Vector3.AngleType (new Vector3 (1, 3, 0), new Vector3 (1, 1, 0)));
+		}
+
+		[Test ()]
+		public void AngleType_GivenTwoVectors_WhenAngleIsObtuse_ReturnNegativeValue ()
+		{
+			Assert.AreEqual (-1, Vector3.AngleType (new Vector3 (-1, -3, 0), new Vector3 (1, 1, 0)));
+			Assert.AreEqual (-1, Vector3.AngleType (new Vector3 (-3, -1, 0), new Vector3 (1, 3, 0)));
+		}
+
+		[Test ()]
+		public void AngleType_GivenTwoVectors_WhenRightAngle_ReturnZero ()
+		{
+			Assert.AreEqual (0, Vector3.AngleType (new Vector3 (1, 0, 0), new Vector3 (0, 1, 0)));
 		}
 	}
 }

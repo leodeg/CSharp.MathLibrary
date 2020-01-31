@@ -65,7 +65,7 @@ namespace LeoDeg.Math.Matrices
 				{ 0, 0, 1 }}
 			);
 
-			Assert.AreEqual (true, Matrice3.Symmetric (matrice));
+			Assert.AreEqual (true, Matrice3.IsSymmetric (matrice));
 		}
 
 		[Test ()]
@@ -77,7 +77,7 @@ namespace LeoDeg.Math.Matrices
 				{ 0, 0, 1 }}
 			);
 
-			Assert.AreEqual (false, Matrice3.Symmetric (matrice));
+			Assert.AreEqual (false, Matrice3.IsSymmetric (matrice));
 		}
 
 		[Test ()]
@@ -89,7 +89,7 @@ namespace LeoDeg.Math.Matrices
 				{ 0, 0, 1 }}
 			);
 
-			Assert.AreEqual (true, Matrice3.Diagonal (matrice));
+			Assert.AreEqual (true, Matrice3.IsDiagonal (matrice));
 		}
 
 		[Test ()]
@@ -100,7 +100,7 @@ namespace LeoDeg.Math.Matrices
 				{ 7, 10, 0 },
 				{ 6, 0, 1 }}
 			);
-			Assert.AreEqual (false, Matrice3.Diagonal (matrice));
+			Assert.AreEqual (false, Matrice3.IsDiagonal (matrice));
 		}
 
 		[Test ()]

@@ -57,28 +57,28 @@ namespace LeoDeg.Math.Matrices
 		public void Symmetric_GivenMatrix_MatrixIsSymmetric_ReturnTrue ()
 		{
 			Matrice2 matrice = new Matrice2 (new float[,] { { 1, 0 }, { 0, 1 } });
-			Assert.AreEqual (true, Matrice2.Symmetric (matrice));
+			Assert.AreEqual (true, Matrice2.IsSymmetric (matrice));
 		}
 
 		[Test ()]
 		public void Symmetric_GivenMatrix_MatrixIsNotSymmetric_ReturnFalse ()
 		{
 			Matrice2 matrice = new Matrice2 (new float[,] { { 1, 0 }, { 1, 1 } });
-			Assert.AreEqual (false, Matrice2.Symmetric (matrice));
+			Assert.AreEqual (false, Matrice2.IsSymmetric (matrice));
 		}
 
 		[Test ()]
 		public void Diagonal_GivenMatrix_MatrixIsDiagonal_ReturnTrue ()
 		{
 			Matrice2 matrice = new Matrice2 (new float[,] { { 1, 0 }, { 0, 1 } });
-			Assert.AreEqual (true, Matrice2.Diagonal (matrice));
+			Assert.AreEqual (true, Matrice2.IsDiagonal (matrice));
 		}
 
 		[Test ()]
 		public void Diagonal_GivenMatrix_MatrixIsNotDiagonal_ReturnFalse ()
 		{
 			Matrice2 matrice = new Matrice2 (new float[,] { { 1, 0 }, { 1, 1 } });
-			Assert.AreEqual (false, Matrice2.Diagonal (matrice));
+			Assert.AreEqual (false, Matrice2.IsDiagonal (matrice));
 		}
 
 		[Test ()]

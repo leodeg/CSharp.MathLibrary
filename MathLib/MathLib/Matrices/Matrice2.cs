@@ -46,15 +46,18 @@ namespace LeoDeg.Math.Matrices
 		/// Return zero matrix (0,0,0,0).
 		/// </summary>
 		public Matrice2 zero => new Matrice2 (0f, 0f, 0f, 0f);
-
+		/// <summary>
+		/// Return diagonal matrix (1,0,0,1).
+		/// </summary>
+		public Matrice2 diagonal => new Matrice2 (1f, 0f, 0f, 1f);
 		/// <summary>
 		/// Return identity matrix (1,1,1,1).
 		/// </summary>
 		public Matrice2 identity => new Matrice2 (1f, 1f, 1f, 1f);
-		public bool isDiagonal => Diagonal (this);
+		public bool isDiagonal => IsDiagonal (this);
 		public Matrice2 transposed => Transpose (this);
-		public bool isSymmetric => Symmetric (this);
-		public bool isAntiSymmetric => AntiSymmetric (this);
+		public bool isSymmetric => IsSymmetric (this);
+		public bool isAntiSymmetric => IsAntiSymmetric (this);
 		public float determinant => Determinant (this);
 
 
@@ -66,17 +69,17 @@ namespace LeoDeg.Math.Matrices
 			);
 		}
 
-		public static bool Diagonal (Matrice2 matrix)
+		public static bool IsDiagonal (Matrice2 matrix)
 		{
 			return matrix[0, 1].Equals (0f) && matrix[1, 0].Equals (0f);
 		}
 
-		public static bool Symmetric (Matrice2 matrix)
+		public static bool IsSymmetric (Matrice2 matrix)
 		{
 			return matrix[0, 1].Equals (matrix[1, 0]);
 		}
 
-		public static bool AntiSymmetric (Matrice2 matrix)
+		public static bool IsAntiSymmetric (Matrice2 matrix)
 		{
 			throw new NotImplementedException ();
 		}
@@ -109,6 +112,12 @@ namespace LeoDeg.Math.Matrices
 		public override int GetHashCode ()
 		{
 			return matrix.GetHashCode () + this.GetType ().GetHashCode ();
+		}
+
+		public override string ToString ()
+		{
+			return string.Format ("[{0},{1}]\n[{2},{3}]",
+				matrix[0, 0], matrix[0, 1], matrix[1, 0], matrix[1, 1]);
 		}
 
 		public static Matrice2 operator + (Matrice2 a, Matrice2 b)

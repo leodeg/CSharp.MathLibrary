@@ -91,9 +91,20 @@ namespace LeoDeg.Math.Matrices
 			}
 		}
 
-		public float determinant => Determinant (this);
+		public static Matrice3 diagonal
+		{
+			get
+			{
+				return new Matrice3 (new float[,] {
+				{ 1, 0, 0 },
+				{ 0, 1, 0 },
+				{ 0, 0, 1 } });
+			}
+		}
 
+		public float determinant => Determinant (this);
 		public Matrice3 inverse => Inverse (this);
+		public bool isDiagonal => IsDiagonal (this);
 
 		public static float Determinant (Matrice3 m)
 		{
@@ -102,7 +113,7 @@ namespace LeoDeg.Math.Matrices
 				 + m[0, 2] * (m[1, 0] * m[2, 1] - m[1, 1] * m[2, 0]);
 		}
 
-		public static bool Diagonal (Matrice3 matrix)
+		public static bool IsDiagonal (Matrice3 matrix)
 		{
 			return matrix[0, 1] == 0f &&
 				matrix[0, 2] == 0f &&
@@ -121,7 +132,7 @@ namespace LeoDeg.Math.Matrices
 			);
 		}
 
-		public static bool Symmetric (Matrice3 matrix)
+		public static bool IsSymmetric (Matrice3 matrix)
 		{
 			return matrix[0, 1] == matrix[1, 0] &&
 				matrix[0, 2] == matrix[2, 0] &&
@@ -134,17 +145,17 @@ namespace LeoDeg.Math.Matrices
 			Vector3 b = m[1];
 			Vector3 c = m[2];
 
-			Vector3 r0 = Vector3.Cross (b, c);
-			Vector3 r1 = Vector3.Cross (c, a);
-			Vector3 r2 = Vector3.Cross (a, b);
+			Vector3 row0 = Vector3.Cross (b, c);
+			Vector3 row1 = Vector3.Cross (c, a);
+			Vector3 row2 = Vector3.Cross (a, b);
 
-			float invDet = 1.0f / Vector3.Dot (r1, c);
+			float invDet = 1.0f / Vector3.Dot (row1, c);
 
 			return new Matrice3
 			(
-				r0.x * invDet, r0.y * invDet, r0.z * invDet,
-				r1.x * invDet, r1.y * invDet, r1.z * invDet,
-				r2.x * invDet, r2.y * invDet, r2.z * invDet
+				row0.x * invDet, row0.y * invDet, row0.z * invDet,
+				row1.x * invDet, row1.y * invDet, row1.z * invDet,
+				row2.x * invDet, row2.y * invDet, row2.z * invDet
 
 			);
 		}
@@ -152,6 +163,14 @@ namespace LeoDeg.Math.Matrices
 		public IEnumerator GetEnumerator ()
 		{
 			return Matrix.GetEnumerator ();
+		}
+
+		public override string ToString ()
+		{
+			return string.Format ("[{0},{1},{2}]\n[{3},{4},{5}]\n[{6},{7},{8}]",
+				Matrix[0, 0], Matrix[0, 1], Matrix[0, 2],
+				Matrix[1, 0], Matrix[1, 1], Matrix[1, 2],
+				Matrix[2, 0], Matrix[2, 1], Matrix[2, 2]);
 		}
 
 		public static Matrice3 operator * (Matrice3 a, Matrice3 b)

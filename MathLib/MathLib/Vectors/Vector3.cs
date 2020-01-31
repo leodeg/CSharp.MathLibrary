@@ -211,6 +211,21 @@ namespace LeoDeg.Math.Vectors
 			return a - (b * (Dot (a, b) / Dot (b, b)));
 		}
 
+		public Vector2 ToVector2 ()
+		{
+			return new Vector2 (x, y);
+		}
+
+		public Vector4 ToVector4 ()
+		{
+			return new Vector4 (x, y, z, 0);
+		}
+
+		public override string ToString ()
+		{
+			return string.Format ("<{0}, {1}, {2}>", x, y, z);
+		}
+
 		public override bool Equals (object obj)
 		{
 			if (ReferenceEquals (null, obj)) return false;

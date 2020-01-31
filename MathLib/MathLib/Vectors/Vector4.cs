@@ -94,6 +94,11 @@ namespace LeoDeg.Math.Vectors
 			return new Vector3 (x, y, z);
 		}
 
+		public override string ToString ()
+		{
+			return string.Format ("<{0}, {1}, {2}, {3}>", x, y, z, w);
+		}
+
 		public override bool Equals (object obj)
 		{
 			if (ReferenceEquals (null, obj)) return false;

@@ -44,9 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LeoMath.cs" />
     <Compile Include="Matrices\Matrice2.cs" />
     <Compile Include="Matrices\Matrice3.cs" />
     <Compile Include="Matrices\Matrice4.cs" />
+    <Compile Include="Geometry\Line.cs" />
     <Compile Include="Vectors\Vector2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Vectors\Vector3.cs" />
@@ -56,7 +58,6 @@
     <Content Include="math.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Geometry\" />
     <Folder Include="Quaternions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

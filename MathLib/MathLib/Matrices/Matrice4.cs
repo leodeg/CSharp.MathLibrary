@@ -192,6 +192,15 @@ namespace LeoDeg.Math.Matrices
 			return Matrix.GetEnumerator ();
 		}
 
+		public override string ToString ()
+		{
+			return string.Format ("[{0},{1},{2},{3}]\n[{4},{5},{6},{7}]\n[{8},{9},{10},{11}]\n[{12},{13},{14},{15}]",
+				Matrix[0, 0], Matrix[0, 1], Matrix[0, 2], Matrix[0, 3],
+				Matrix[1, 0], Matrix[1, 1], Matrix[1, 2], Matrix[1, 3],
+				Matrix[2, 0], Matrix[2, 1], Matrix[2, 2], Matrix[2, 3],
+				Matrix[3, 0], Matrix[3, 1], Matrix[3, 2], Matrix[3, 3]);
+		}
+
 		public static Matrice4 Inverse (Matrice4 M)
 		{
 			Vector3 a = M[0].ToVector3 ();
@@ -215,16 +224,16 @@ namespace LeoDeg.Math.Matrices
 			u *= invDet;
 			v *= invDet;
 
-			Vector3 r0 = Vector3.Cross (b, v) + t * y;
-			Vector3 r1 = Vector3.Cross (v, a) - t * x;
-			Vector3 r2 = Vector3.Cross (d, u) + s * w;
-			Vector3 r3 = Vector3.Cross (u, c) - s * z;
+			Vector3 row0 = Vector3.Cross (b, v) + t * y;
+			Vector3 row1 = Vector3.Cross (v, a) - t * x;
+			Vector3 row2 = Vector3.Cross (d, u) + s * w;
+			Vector3 row3 = Vector3.Cross (u, c) - s * z;
 
 			return (new Matrice4 (
-				r0.x, r0.y, r0.z, -Vector3.Dot (b, t),
-				r1.x, r1.y, r1.z, Vector3.Dot (a, t),
-				r2.x, r2.y, r2.z, -Vector3.Dot (d, s),
-				r3.x, r3.y, r3.z, Vector3.Dot (c, s))
+				row0.x, row0.y, row0.z, -Vector3.Dot (b, t),
+				row1.x, row1.y, row1.z, Vector3.Dot (a, t),
+				row2.x, row2.y, row2.z, -Vector3.Dot (d, s),
+				row3.x, row3.y, row3.z, Vector3.Dot (c, s))
 			);
 		}
 	}

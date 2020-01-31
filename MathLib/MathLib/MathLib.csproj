@@ -50,6 +50,7 @@
     <Compile Include="Vectors\Vector2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Vectors\Vector3.cs" />
+    <Compile Include="Vectors\Vector4.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="math.ico" />

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom;
 using LeoDeg.Math.Matrices;
 
 namespace LeoDeg.Math.Vectors

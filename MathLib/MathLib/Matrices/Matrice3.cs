@@ -9,35 +9,28 @@ namespace LeoDeg.Math.Matrices
 	{
 		private float[,] Matrix;
 
+		public Matrice3 ()
+		{
+			Matrix = new float[3, 3];
+		}
+
 		public Matrice3 (float n00, float n01, float n02,
 						 float n10, float n11, float n12,
 						 float n20, float n21, float n22)
 		{
 			Matrix = new float[3, 3];
-			Matrix[0, 0] = n00;
-			Matrix[0, 1] = n01;
-			Matrix[0, 2] = n02;
-			Matrix[1, 0] = n10;
-			Matrix[1, 1] = n11;
-			Matrix[1, 2] = n12;
-			Matrix[2, 0] = n20;
-			Matrix[2, 1] = n21;
-			Matrix[2, 2] = n22;
+			Matrix[0, 0] = n00; Matrix[0, 1] = n01; Matrix[0, 2] = n02;
+			Matrix[1, 0] = n10; Matrix[1, 1] = n11; Matrix[1, 2] = n12;
+			Matrix[2, 0] = n20; Matrix[2, 1] = n21; Matrix[2, 2] = n22;
 
 		}
 
 		public Matrice3 (Vector3 a, Vector3 b, Vector3 c)
 		{
 			Matrix = new float[3, 3];
-			Matrix[0, 0] = a.x;
-			Matrix[0, 1] = a.y;
-			Matrix[0, 2] = a.z;
-			Matrix[1, 0] = b.x;
-			Matrix[1, 1] = b.y;
-			Matrix[1, 2] = b.z;
-			Matrix[2, 0] = c.x;
-			Matrix[2, 1] = c.y;
-			Matrix[2, 2] = c.z;
+			Matrix[0, 0] = a.x; Matrix[0, 1] = a.y; Matrix[0, 2] = a.z;
+			Matrix[1, 0] = b.x; Matrix[1, 1] = b.y; Matrix[1, 2] = b.z;
+			Matrix[2, 0] = c.x; Matrix[2, 1] = c.y; Matrix[2, 2] = c.z;
 		}
 
 		/// <summary>
@@ -56,8 +49,18 @@ namespace LeoDeg.Math.Matrices
 
 		public float this[int x, int y]
 		{
-			get { return Matrix[x, y]; }
-			set { Matrix[x, y] = value; }
+			get
+			{
+				if (x < 0 || x > 2 || y < 0 || y > 2)
+					throw new IndexOutOfRangeException ("Indexes [" + x + ", " + y + "], is out of range 3x3.");
+				return Matrix[x, y];
+			}
+			set
+			{
+				if (x < 0 || x > 2 || y < 0 || y > 2)
+					throw new IndexOutOfRangeException ("Indexes [" + x + ", " + y + "], is out of range 3x3.");
+				Matrix[x, y] = value;
+			}
 		}
 
 		/// <summary>
@@ -69,27 +72,28 @@ namespace LeoDeg.Math.Matrices
 			{
 				switch (rowIndex)
 				{
-					case 0:
-						return new Vector3 (Matrix[0, 0], Matrix[0, 1], Matrix[0, 2]);
-					case 1:
-						return new Vector3 (Matrix[1, 0], Matrix[1, 1], Matrix[1, 2]);
-					case 2:
-						return new Vector3 (Matrix[2, 0], Matrix[2, 1], Matrix[2, 2]);
-					default:
-						throw new ArgumentOutOfRangeException ();
+					case 0: return new Vector3 (Matrix[0, 0], Matrix[0, 1], Matrix[0, 2]);
+					case 1: return new Vector3 (Matrix[1, 0], Matrix[1, 1], Matrix[1, 2]);
+					case 2: return new Vector3 (Matrix[2, 0], Matrix[2, 1], Matrix[2, 2]);
+					default: throw new ArgumentOutOfRangeException ();
 				}
 			}
 		}
 
 		public static Matrice3 zero
 		{
-			get { return new Matrice3 (new float[,] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } }); }
+			get
+			{
+				return new Matrice3 (new float[,] {
+				{ 0, 0, 0 },
+				{ 0, 0, 0 },
+				{ 0, 0, 0 } });
+			}
 		}
 
 		public float determinant => Determinant (this);
 
 		public Matrice3 inverse => Inverse (this);
-
 
 		public static float Determinant (Matrice3 m)
 		{

@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace LeoDeg.Math.Vectors
 {
-	public struct Vector2
+	public class Vector2
 	{
 		public static readonly Vector2 Up = new Vector2 (0, 1);
 		public static readonly Vector2 Down = new Vector2 (0, -1);

@@ -169,6 +169,16 @@ namespace LeoDeg.Math.Vectors
 			return a - (b * (Dot (a, b) / Dot (b, b)));
 		}
 
+		public static Vector2 Perp (Vector2 vector)
+		{
+			return new Vector2 (vector.y, -vector.x);
+		}
+
+		public Vector2 Perp ()
+		{
+			return Perp (this);
+		}
+
 		public override string ToString ()
 		{
 			return string.Format ("<{0}, {1}>", x, y);

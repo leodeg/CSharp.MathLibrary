@@ -158,6 +158,36 @@ namespace LeoDeg.Math.Vectors
 			return to - from;
 		}
 
+		static public Vector3 LookAt (Vector3 forwardVector, Vector3 current, Vector3 target)
+		{
+			Vector3 direction = new Vector3 (
+				target.x - current.x,
+				target.y - current.y,
+				target.z - current.z);
+
+			float angle = Vector3.AngleRad (forwardVector, direction);
+
+			bool clockwise = false;
+			if (Vector3.Cross (forwardVector, direction).z < 0)
+				clockwise = true;
+
+			return Vector3.Rotate (forwardVector, angle, clockwise);
+		}
+
+		/// <summary>
+		/// Rotate vector and by using radians.
+		/// </summary>
+		static public Vector3 Rotate (Vector3 vector, float angle, bool clockwise) //in radians
+		{
+			if (clockwise)
+				angle = Convert.ToSingle (2 * System.Math.PI - angle);
+
+			float xVal = Convert.ToSingle (vector.x * System.Math.Cos (angle) - vector.y * System.Math.Sin (angle));
+			float yVal = Convert.ToSingle (vector.x * System.Math.Sin (angle) + vector.y * System.Math.Cos (angle));
+
+			return new Vector3 (xVal, yVal, 0);
+		}
+
 		/// <summary>
 		/// Return angle in degrees between two vectors.
 		/// </summary>
@@ -193,6 +223,29 @@ namespace LeoDeg.Math.Vectors
 			return 1;
 		}
 
+		static public Vector3 Translate (Vector3 start, Vector3 facing, Vector3 direction)
+		{
+			if (Distance (direction, new Vector3 (0, 0, 0)) <= 0) return start;
+			float angle = AngleRad (direction, facing);
+			float worldAngle = AngleRad (direction, new Vector3 (0, 1, 0));
+
+			bool clockwise = false;
+			if (Cross (direction, facing).z < 0)
+				clockwise = true;
+
+			direction = Rotate (direction, angle + worldAngle, clockwise);
+			return new Vector3 (
+				start.x + direction.x,
+				start.y + direction.y,
+				start.z + direction.z);
+		}
+
+		static public Vector3 Translate (Vector3 start, Vector3 vector)
+		{
+			if (Vector3.Distance (vector, new Vector3 (0, 0, 0)) <= 0) return start;
+			return start + vector;
+		}
+
 		/// <summary>
 		/// Make projection of vector a onto vector b.
 		/// <para>((a * b) / b^2) * b</para>
@@ -210,6 +263,17 @@ namespace LeoDeg.Math.Vectors
 		{
 			return a - (b * (Dot (a, b) / Dot (b, b)));
 		}
+
+		public static Vector3 Perp (Vector3 vector)
+		{
+			return new Vector3 (vector.y, -vector.x);
+		}
+
+		public Vector3 Perp ()
+		{
+			return Perp (this);
+		}
+
 
 		public Vector2 ToVector2 ()
 		{

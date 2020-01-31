@@ -14,5 +14,7 @@ namespace LeoDeg.MathLib
 			if (value.CompareTo (max) > 0) return max;
 			return value;
 		}
+
+
 	}
 }

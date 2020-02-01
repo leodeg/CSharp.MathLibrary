@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using LeoDeg.Math.Vectors;
+using LeoDeg.MathLib;
 
 namespace LeoDeg.Math.Matrices
 {
@@ -103,8 +104,11 @@ namespace LeoDeg.Math.Matrices
 		}
 
 		public float determinant => Determinant (this);
-		public Matrice3 inverse => Inverse (this);
 		public bool isDiagonal => IsDiagonal (this);
+		public bool isSymmetric => IsSymmetric (this);
+		public bool isAntiSymmetric => IsAntiSymmetric (this);
+		public Matrice3 inverse => Inverse (this);
+		public Matrice3 transposed => Transpose (this);
 
 		public static float Determinant (Matrice3 m)
 		{
@@ -141,6 +145,11 @@ namespace LeoDeg.Math.Matrices
 				matrix[1, 2] == matrix[2, 1];
 		}
 
+		public static bool IsAntiSymmetric (Matrice3 matrice)
+		{
+			return matrice.transposed == -matrice;
+		}
+
 		public static Matrice3 Inverse (Matrice3 m)
 		{
 			Vector3 a = m[0];
@@ -173,6 +182,26 @@ namespace LeoDeg.Math.Matrices
 				Matrix[0, 0], Matrix[0, 1], Matrix[0, 2],
 				Matrix[1, 0], Matrix[1, 1], Matrix[1, 2],
 				Matrix[2, 0], Matrix[2, 1], Matrix[2, 2]);
+		}
+
+		public override bool Equals (object obj)
+		{
+			if (ReferenceEquals (null, obj)) return false;
+			if (ReferenceEquals (this, obj)) return true;
+			if (obj.GetType () != this.GetType ()) return false;
+
+			return obj is Matrice3 && this.Equals ((Matrice3)obj);
+		}
+
+		public bool Equals (Matrice3 other)
+		{
+			if (ReferenceEquals (null, other)) return false;
+			if (ReferenceEquals (this, other)) return true;
+
+			return
+				Matrix[0, 0] == other[0, 0] && Matrix[1, 0] == other[1, 0] && Matrix[2, 0] == other[2, 0] &&
+				Matrix[0, 1] == other[0, 1] && Matrix[1, 1] == other[1, 1] && Matrix[2, 1] == other[2, 1] &&
+				Matrix[0, 2] == other[0, 2] && Matrix[1, 2] == other[1, 2] && Matrix[2, 2] == other[2, 2];
 		}
 
 		public static Matrice3 operator * (Matrice3 a, Matrice3 b)
@@ -228,6 +257,26 @@ namespace LeoDeg.Math.Matrices
 				a[0, 1] - b[0, 1], a[1, 1] - b[1, 1], a[2, 1] - b[2, 1],
 				a[0, 2] - b[0, 2], a[1, 2] - b[1, 2], a[2, 2] - b[2, 2]
 			);
+		}
+
+		public static Matrice3 operator - (Matrice3 a)
+		{
+			return new Matrice3
+			(
+				-a[0, 0], -a[0, 1], -a[0, 2],
+				-a[1, 0], -a[1, 1], -a[1, 2],
+				-a[2, 0], -a[2, 1], -a[2, 2]
+			);
+		}
+
+		public static bool operator == (Matrice3 a, Matrice3 b)
+		{
+			return a.Equals (b);
+		}
+
+		public static bool operator != (Matrice3 a, Matrice3 b)
+		{
+			return !a.Equals (b);
 		}
 	}
 }

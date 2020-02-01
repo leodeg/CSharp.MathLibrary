@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using LeoDeg.Math.Vectors;
+using LeoDeg.MathLib;
 
 namespace LeoDeg.Math.Matrices
 {
@@ -81,9 +82,9 @@ namespace LeoDeg.Math.Matrices
 
 		public static bool IsAntiSymmetric (Matrice2 matrix)
 		{
-			throw new NotImplementedException ();
+			if (matrix[0, 1] != -matrix[1, 0]) return false;
+			return true;
 		}
-
 
 		public static float Determinant (Matrice2 matrix)
 		{

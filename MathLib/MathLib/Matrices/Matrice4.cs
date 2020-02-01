@@ -1,4 +1,5 @@
 ﻿using LeoDeg.Math.Vectors;
+using LeoDeg.MathLib;
 using System;
 using System.Collections;
 
@@ -50,15 +51,16 @@ namespace LeoDeg.Math.Matrices
 		}
 
 		public bool isDiagonal { get { return IsDiagonal (this); } }
-		public bool isSymmetirc { get { return IsSymmetric (this); } }
+		public bool isSymmetric { get { return IsSymmetric (this); } }
+		public bool isAntiSymmetric { get { return IsAntiSymmetric (this); } }
 		public Matrice4 transposed { get { return Transpose (this); } }
 		public Matrice4 inversed { get { return Inverse (this); } }
 
-		public static Matrice3 zero
+		public static Matrice4 zero
 		{
 			get
 			{
-				return new Matrice3 (new float[,] {
+				return new Matrice4 (new float[,] {
 				{ 0, 0, 0, 0 },
 				{ 0, 0, 0, 0 },
 				{ 0, 0, 0, 0 },
@@ -66,11 +68,11 @@ namespace LeoDeg.Math.Matrices
 			}
 		}
 
-		public static Matrice3 diagonal
+		public static Matrice4 diagonal
 		{
 			get
 			{
-				return new Matrice3 (new float[,] {
+				return new Matrice4 (new float[,] {
 				{ 1, 0, 0, 0 },
 				{ 0, 1, 0, 0 },
 				{ 0, 0, 1, 0 },
@@ -143,6 +145,32 @@ namespace LeoDeg.Math.Matrices
 
 		}
 
+		public static bool IsAntiSymmetric (Matrice4 matrice)
+		{
+			return matrice.transposed == -matrice;
+		}
+
+		public override bool Equals (object obj)
+		{
+			if (ReferenceEquals (null, obj)) return false;
+			if (ReferenceEquals (this, obj)) return true;
+			if (obj.GetType () != this.GetType ()) return false;
+
+			return obj is Matrice4 && this.Equals ((Matrice4)obj);
+		}
+
+		public bool Equals (Matrice4 other)
+		{
+			if (ReferenceEquals (null, other)) return false;
+			if (ReferenceEquals (this, other)) return true;
+
+			return
+				Matrix[0, 0] == other[0, 0] && Matrix[1, 0] == other[1, 0] && Matrix[2, 0] == other[2, 0] && Matrix[3, 0] == other[3, 0] &&
+				Matrix[0, 1] == other[0, 1] && Matrix[1, 1] == other[1, 1] && Matrix[2, 1] == other[2, 1] && Matrix[3, 1] == other[3, 1] &&
+				Matrix[0, 2] == other[0, 2] && Matrix[1, 2] == other[1, 2] && Matrix[2, 2] == other[2, 2] && Matrix[3, 2] == other[3, 2] &&
+				Matrix[0, 3] == other[0, 3] && Matrix[1, 3] == other[1, 3] && Matrix[2, 3] == other[2, 3] && Matrix[3, 3] == other[3, 3];
+		}
+
 		public static Matrice4 operator * (Matrice4 a, Matrice4 b)
 		{
 			return new Matrice4
@@ -209,6 +237,17 @@ namespace LeoDeg.Math.Matrices
 				a[1, 0] - b[1, 0], a[1, 1] - b[1, 1], a[1, 2] - b[1, 2], a[1, 3] - b[1, 3],
 				a[2, 0] - b[2, 0], a[2, 1] - b[2, 1], a[2, 2] - b[2, 2], a[2, 3] - b[2, 3],
 				a[3, 0] - b[3, 0], a[3, 1] - b[3, 1], a[3, 2] - b[3, 2], a[3, 3] - b[3, 3]
+			);
+		}
+
+		public static Matrice4 operator - (Matrice4 a)
+		{
+			return new Matrice4
+			(
+				-a[0, 0], -a[0, 1], -a[0, 2], -a[0, 3],
+				-a[1, 0], -a[1, 1], -a[1, 2], -a[1, 3],
+				-a[2, 0], -a[2, 1], -a[2, 2], -a[2, 3],
+				-a[3, 0], -a[3, 1], -a[3, 2], -a[3, 3]
 			);
 		}
 

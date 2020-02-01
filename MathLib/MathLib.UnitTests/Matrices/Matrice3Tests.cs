@@ -81,6 +81,30 @@ namespace LeoDeg.Math.Matrices
 		}
 
 		[Test ()]
+		public void AntiSymmetric_GivenMatrix_MatrixIsAntiSymmetric_ReturnTrue ()
+		{
+			Matrice3 matrice = new Matrice3 (new float[,] {
+				{ 0, -1, 1 },
+				{ 1, 0, -1 },
+				{- 1, 1, 0 }}
+			);
+
+			Assert.AreEqual (true, Matrice3.IsAntiSymmetric (matrice));
+		}
+
+		[Test ()]
+		public void AntiSymmetric_GivenMatrix_MatrixIsNotAntiSymmetric_ReturnFalse ()
+		{
+			Matrice3 matrice = new Matrice3 (new float[,] {
+				{ 0, -1, 1 },
+				{ 1, 0, -1 },
+				{ 1, 1, 0 }}
+			);
+
+			Assert.AreEqual (false, Matrice3.IsAntiSymmetric (matrice));
+		}
+
+		[Test ()]
 		public void Diagonal_GivenMatrix_MatrixIsDiagonal_ReturnTrue ()
 		{
 			Matrice3 matrice = new Matrice3 (new float[,] {

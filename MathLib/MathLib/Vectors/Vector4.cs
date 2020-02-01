@@ -120,6 +120,11 @@ namespace LeoDeg.Math.Vectors
 			return LeoMath.Sqrt (Dot (this, b));
 		}
 
+		public static Vector4 Normalize (Vector4 vector)
+		{
+			return vector / Magnitude (vector, vector);
+		}
+
 		public override string ToString ()
 		{
 			return string.Format ("<{0}, {1}, {2}, {3}>", x, y, z, w);

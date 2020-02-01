@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Geometry\Plane.cs" />
     <Compile Include="LeoMath.cs" />
     <Compile Include="Matrices\Matrice2.cs" />
     <Compile Include="Matrices\Matrice3.cs" />

@@ -73,5 +73,76 @@ namespace LeoDeg.Math.Matrices
 
 			Assert.AreEqual (expected, Matrice4.Inverse (matrice));
 		}
+
+		[Test ()]
+		public void Symmetric_GivenMatrix_MatrixIsSymmetric_ReturnTrue ()
+		{
+			Matrice4 matrice = new Matrice4 (new float[,] {
+				{ 1, 0, 0, 0 },
+				{ 0, 1, 0, 0 },
+				{ 0, 0, 1, 0 },
+				{ 0, 0, 0, 1 }}
+			);
+
+			Assert.AreEqual (true, Matrice4.IsSymmetric (matrice));
+		}
+
+		[Test ()]
+		public void Symmetric_GivenMatrix_MatrixIsNotSymmetric_ReturnFalse ()
+		{
+			Matrice4 matrice = new Matrice4 (new float[,] {
+				{ 1, 0, 0, 2 },
+				{ 2, 1, 0, 0 },
+				{ 0, 0, 1, 0 },
+				{ 0, 0, 2, 1 }}
+			);
+
+			Assert.AreEqual (false, Matrice4.IsSymmetric (matrice));
+		}
+
+		[Test ()]
+		public void Diagonal_GivenMatrix_MatrixIsDiagonal_ReturnTrue ()
+		{
+			Matrice4 matrice = new Matrice4 (new float[,] {
+				{ 5, 0, 0, 0 },
+				{ 0, 6, 0, 0 },
+				{ 0, 0, 3, 0 },
+				{ 0, 0, 0, 7 }}
+			);
+
+			Assert.AreEqual (true, Matrice4.IsDiagonal (matrice));
+		}
+
+		[Test ()]
+		public void Diagonal_GivenMatrix_MatrixIsNotDiagonal_ReturnFalse ()
+		{
+			Matrice4 matrice = new Matrice4 (new float[,] {
+				{ 5, 0, 0, 3 },
+				{ 0, 6, 0, 0 },
+				{ 3, 0, 3, 0 },
+				{ 0, 0, 0, 7 }}
+			);
+			Assert.AreEqual (false, Matrice4.IsDiagonal (matrice));
+		}
+
+		[Test ()]
+		public void Transpose_GivenMatrix_ReturnTransposedMatrix ()
+		{
+			Matrice4 matrice = new Matrice4 (new float[,] {
+				{ 1, 2, 3, 4 },
+				{ 1, 2, 3, 4 },
+				{ 1, 2, 3, 4 },
+				{ 1, 2, 3, 4 }}
+			);
+
+			Matrice4 expected = new Matrice4 (new float[,] {
+				{ 1, 1, 1, 1 },
+				{ 2, 2, 2, 2 },
+				{ 3, 3, 3, 3 },
+				{ 4, 4, 4, 4 }}
+			);
+
+			Assert.AreEqual (expected, Matrice4.Transpose (matrice));
+		}
 	}
 }

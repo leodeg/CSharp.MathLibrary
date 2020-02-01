@@ -115,7 +115,8 @@ namespace LeoDeg.Math.Matrices
 
 		public static bool IsDiagonal (Matrice3 matrix)
 		{
-			return matrix[0, 1] == 0f &&
+			return
+				matrix[0, 1] == 0f &&
 				matrix[0, 2] == 0f &&
 				matrix[1, 0] == 0f &&
 				matrix[1, 2] == 0f &&
@@ -134,7 +135,8 @@ namespace LeoDeg.Math.Matrices
 
 		public static bool IsSymmetric (Matrice3 matrix)
 		{
-			return matrix[0, 1] == matrix[1, 0] &&
+			return
+				matrix[0, 1] == matrix[1, 0] &&
 				matrix[0, 2] == matrix[2, 0] &&
 				matrix[1, 2] == matrix[2, 1];
 		}

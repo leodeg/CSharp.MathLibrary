@@ -49,6 +49,11 @@ namespace LeoDeg.Math.Matrices
 			Matrix = matrix;
 		}
 
+		public bool isDiagonal { get { return IsDiagonal (this); } }
+		public bool isSymmetirc { get { return IsSymmetric (this); } }
+		public Matrice4 transposed { get { return Transpose (this); } }
+		public Matrice4 inversed { get { return Inverse (this); } }
+
 		public static Matrice3 zero
 		{
 			get
@@ -105,6 +110,37 @@ namespace LeoDeg.Math.Matrices
 					default: throw new ArgumentOutOfRangeException ();
 				}
 			}
+		}
+
+		public static Matrice4 Transpose (Matrice4 matrix)
+		{
+			return new Matrice4 (
+				matrix[0, 0], matrix[1, 0], matrix[2, 0], matrix[3, 0],
+				matrix[0, 1], matrix[1, 1], matrix[2, 1], matrix[3, 1],
+				matrix[0, 2], matrix[1, 2], matrix[2, 2], matrix[3, 2],
+				matrix[0, 3], matrix[1, 3], matrix[2, 3], matrix[3, 3]
+			);
+		}
+
+		public static bool IsDiagonal (Matrice4 matrix)
+		{
+			return
+				matrix[0, 1] == 0f && matrix[0, 2] == 0f && matrix[0, 3] == 0f &&
+				matrix[1, 0] == 0f && matrix[1, 2] == 0f && matrix[1, 3] == 0f &&
+				matrix[2, 0] == 0f && matrix[2, 1] == 0f && matrix[2, 3] == 0f &&
+				matrix[3, 0] == 0f && matrix[3, 1] == 0f && matrix[3, 2] == 0f;
+		}
+
+		public static bool IsSymmetric (Matrice4 matrix)
+		{
+			return
+				matrix[0, 1] == matrix[1, 0] &&
+				matrix[0, 2] == matrix[2, 0] &&
+				matrix[0, 3] == matrix[3, 0] &&
+				matrix[1, 2] == matrix[2, 1] &&
+				matrix[1, 3] == matrix[3, 1] &&
+				matrix[2, 3] == matrix[3, 2];
+
 		}
 
 		public static Matrice4 operator * (Matrice4 a, Matrice4 b)

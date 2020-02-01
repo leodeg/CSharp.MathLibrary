@@ -128,7 +128,20 @@ namespace LeoDeg.Math.Vectors
 			return new Vector2 (target.x - this.x, target.y - this.y);
 		}
 
-		public static float Angle (Vector2 from, Vector2 to)
+		/// <summary>
+		/// Return angle in degrees between two vectors.
+		/// </summary>
+		public static float Angle (Vector2 a, Vector2 b)
+		{
+			float angle = Dot (a, b) / (a.magnitude * b.magnitude);
+			double toDegrees = 180 / System.Math.PI;
+			return Convert.ToSingle (System.Math.Acos (angle) * toDegrees);
+		}
+
+		/// <summary>
+		/// Return angle in rad between two vectors.
+		/// </summary>
+		public static float AngleRad (Vector2 from, Vector2 to)
 		{
 			float magnitude = Magnitude (from) * Magnitude (to);
 			float dot = Dot (from, to);

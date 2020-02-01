@@ -192,6 +192,11 @@ namespace LeoDeg.Math.Vectors
 			return Perp (this);
 		}
 
+		public float[] ToArray ()
+		{
+			return new float[] { x, y };
+		}
+
 		public override string ToString ()
 		{
 			return string.Format ("<{0}, {1}>", x, y);

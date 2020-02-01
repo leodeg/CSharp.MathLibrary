@@ -1,4 +1,5 @@
 ﻿using LeoDeg.Math.Matrices;
+using LeoDeg.MathLib;
 using System;
 using System.Collections;
 
@@ -92,6 +93,31 @@ namespace LeoDeg.Math.Vectors
 		public Vector3 ToVector3 ()
 		{
 			return new Vector3 (x, y, z);
+		}
+
+		public float[] ToArray ()
+		{
+			return new float[] { x, y, z, w };
+		}
+
+		public static float Dot (Vector4 a, Vector4 b)
+		{
+			return (a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w);
+		}
+
+		public float Dot (Vector4 other)
+		{
+			return Dot (this, other);
+		}
+
+		public static float Magnitude (Vector4 a, Vector4 b)
+		{
+			return LeoMath.Sqrt (Dot (a, b));
+		}
+
+		public float Magnitude (Vector4 b)
+		{
+			return LeoMath.Sqrt (Dot (this, b));
 		}
 
 		public override string ToString ()

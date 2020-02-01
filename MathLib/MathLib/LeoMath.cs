@@ -24,5 +24,15 @@ namespace LeoDeg.MathLib
 		{
 			return System.Math.Abs (value);
 		}
+
+		public static float ToFloat (double value)
+		{
+			return Convert.ToSingle (value);
+		}
+
+		public static float Sqrt (float value)
+		{
+			return Convert.ToSingle (System.Math.Sqrt (value));
+		}
 	}
 }

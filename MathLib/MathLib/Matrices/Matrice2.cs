@@ -121,6 +121,25 @@ namespace LeoDeg.Math.Matrices
 				matrix[0, 0], matrix[0, 1], matrix[1, 0], matrix[1, 1]);
 		}
 
+		public Matrice3 ToMatrice3 ()
+		{
+			return new Matrice3 (
+				matrix[0, 0], matrix[0, 1], 0,
+				matrix[1, 0], matrix[1, 1], 0,
+				0, 0, 0
+			);
+		}
+
+		public Matrice4 ToMatrice4 ()
+		{
+			return new Matrice4 (
+				matrix[0, 0], matrix[0, 1], 0, 0,
+				matrix[1, 0], matrix[1, 1], 0, 0,
+				0, 0, 0, 0,
+				0, 0, 0, 0
+			);
+		}
+
 		public static Matrice2 operator + (Matrice2 a, Matrice2 b)
 		{
 			return new Matrice2
@@ -148,6 +167,14 @@ namespace LeoDeg.Math.Matrices
 			return new Matrice2 (-a[0, 0], -a[0, 1], -a[1, 0], -a[1, 1]);
 		}
 
+		public static Vector2 operator * (Matrice2 matrice, Vector2 vector)
+		{
+			return new Vector2 (
+				matrice[0, 0] * vector.x + matrice[0, 1] * vector.y,
+				matrice[1, 0] * vector.x + matrice[1, 1] * vector.y
+			);
+		}
+
 		public static Matrice2 operator * (Matrice2 a, Matrice2 b)
 		{
 			return new Matrice2
@@ -156,17 +183,6 @@ namespace LeoDeg.Math.Matrices
 				a[1, 0] * b[0, 0] + a[1, 1] * b[1, 0],
 				a[1, 0] * b[0, 1] + a[0, 1] * b[1, 1],
 				a[1, 0] * b[0, 1] + a[1, 1] * b[1, 1]
-			);
-		}
-
-		public static Matrice2 operator * (Matrice2 a, Vector2 b)
-		{
-			return new Matrice2
-			(
-				a[0, 0] * b.x,
-				a[1, 0] * b.y,
-				a[1, 0] * b.x,
-				a[1, 0] * b.y
 			);
 		}
 

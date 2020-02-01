@@ -12,17 +12,15 @@ namespace LeoDeg.Math.Geometry
 		public Vector3 SecondVector { get; set; }
 		public Vector3 End { get { return FirstVector + SecondVector; } }
 
-		public Vector3 DirToFirst { get; set; }
-		public Vector3 DirToSecond { get; set; }
+		public Vector3 DirToFirst { get { return Vector3.Direction (Start, FirstVector); } }
+		public Vector3 DirToSecond { get { return Vector3.Direction (Start, SecondVector); } }
+		public Vector3 DirToEnd { get { return Vector3.Direction (Start, End); } }
 
 		public Plane (Vector3 start, Vector3 firstVector, Vector3 secondVector)
 		{
 			Start = start;
 			FirstVector = firstVector;
 			SecondVector = secondVector;
-
-			DirToFirst = firstVector - start;
-			DirToSecond = secondVector - start;
 		}
 
 		public Vector3 Lerp (float height, float width)

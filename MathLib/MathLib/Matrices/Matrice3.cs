@@ -184,6 +184,24 @@ namespace LeoDeg.Math.Matrices
 				Matrix[2, 0], Matrix[2, 1], Matrix[2, 2]);
 		}
 
+		public Matrice2 ToMatrice2 ()
+		{
+			return new Matrice2 (
+				Matrix[0, 0], Matrix[0, 1],
+				Matrix[1, 0], Matrix[1, 1]
+			);
+		}
+
+		public Matrice4 ToMatrice4 ()
+		{
+			return new Matrice4 (
+				Matrix[0, 0], Matrix[0, 1], Matrix[0, 2], 0,
+				Matrix[1, 0], Matrix[1, 1], Matrix[1, 2], 0,
+				Matrix[2, 0], Matrix[2, 1], Matrix[2, 2], 0,
+				0, 0, 0, 0
+			);
+		}
+
 		public override bool Equals (object obj)
 		{
 			if (ReferenceEquals (null, obj)) return false;
@@ -202,6 +220,15 @@ namespace LeoDeg.Math.Matrices
 				Matrix[0, 0] == other[0, 0] && Matrix[1, 0] == other[1, 0] && Matrix[2, 0] == other[2, 0] &&
 				Matrix[0, 1] == other[0, 1] && Matrix[1, 1] == other[1, 1] && Matrix[2, 1] == other[2, 1] &&
 				Matrix[0, 2] == other[0, 2] && Matrix[1, 2] == other[1, 2] && Matrix[2, 2] == other[2, 2];
+		}
+
+		public static Vector3 operator * (Matrice3 matrice, Vector3 vector)
+		{
+			return new Vector3 (
+				matrice[0, 0] * vector.x + matrice[0, 1] * vector.y + matrice[0, 2] * vector.z,
+				matrice[1, 0] * vector.x + matrice[1, 1] * vector.y + matrice[1, 2] * vector.z,
+				matrice[2, 0] * vector.x + matrice[2, 1] * vector.y + matrice[2, 2] * vector.z
+			);
 		}
 
 		public static Matrice3 operator * (Matrice3 a, Matrice3 b)

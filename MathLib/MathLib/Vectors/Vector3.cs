@@ -1,5 +1,6 @@
 ﻿using System;
 using LeoDeg.Math.Matrices;
+using LeoDeg.MathLib;
 
 namespace LeoDeg.Math.Vectors
 {
@@ -125,13 +126,13 @@ namespace LeoDeg.Math.Vectors
 
 		public static float Magnitude (Vector3 a, Vector3 b)
 		{
-			return Convert.ToSingle (System.Math.Sqrt (Dot (a, b)));
+			return LeoMath.Sqrt (Dot (a, b));
 		}
 
 
 		public static float Magnitude (Vector3 v)
 		{
-			return Convert.ToSingle (System.Math.Sqrt (Dot (v)));
+			return LeoMath.Sqrt (Dot (v));
 		}
 
 		public static float Distance (Vector3 from, Vector3 to)
@@ -140,7 +141,7 @@ namespace LeoDeg.Math.Vectors
 			float distY = to.y - from.y;
 			float distZ = to.z - from.z;
 
-			return Convert.ToSingle (System.Math.Sqrt (Dot (distX, distY, distZ)));
+			return LeoMath.Sqrt (Dot (distX, distY, distZ));
 		}
 
 
@@ -150,7 +151,7 @@ namespace LeoDeg.Math.Vectors
 			float distY = to.y - this.y;
 			float distZ = to.z - this.z;
 
-			return Convert.ToSingle (System.Math.Sqrt (Dot (distX, distY, distZ)));
+			return LeoMath.Sqrt (Dot (distX, distY, distZ));
 		}
 
 		public static Vector3 Direction (Vector3 from, Vector3 to)
@@ -283,6 +284,11 @@ namespace LeoDeg.Math.Vectors
 		public Vector4 ToVector4 ()
 		{
 			return new Vector4 (x, y, z, 0);
+		}
+
+		public float[] ToArray ()
+		{
+			return new float[] { x, y, z };
 		}
 
 		public override string ToString ()

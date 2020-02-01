@@ -213,6 +213,16 @@ namespace LeoDeg.Math.Matrices
 			);
 		}
 
+		public static Vector4 operator * (Matrice4 matrice, Vector4 vector)
+		{
+			return new Vector4 (
+				matrice[0, 0] * vector.x + matrice[0, 1] * vector.y + matrice[0, 2] * vector.z + matrice[0, 3] * vector.w,
+				matrice[1, 0] * vector.x + matrice[1, 1] * vector.y + matrice[1, 2] * vector.z + matrice[1, 3] * vector.w,
+				matrice[2, 0] * vector.x + matrice[2, 1] * vector.y + matrice[2, 2] * vector.z + matrice[2, 3] * vector.w,
+				matrice[3, 0] * vector.x + matrice[3, 1] * vector.y + matrice[3, 2] * vector.z + matrice[3, 3] * vector.w
+			);
+		}
+
 		public static Matrice4 operator * (float scalar, Matrice4 a)
 		{
 			return a * scalar;
@@ -251,17 +261,6 @@ namespace LeoDeg.Math.Matrices
 			);
 		}
 
-		public static Vector4 operator * (Matrice4 m, Vector4 v)
-		{
-			return new Vector4
-			(
-				m[0, 0] * v.x + m[0, 1] * v.y + m[0, 2] * v.z + m[0, 3] * v.w,
-				m[1, 0] * v.x + m[1, 1] * v.y + m[1, 2] * v.z + m[1, 3] * v.w,
-				m[2, 0] * v.x + m[2, 1] * v.y + m[2, 2] * v.z + m[2, 3] * v.w,
-				m[3, 0] * v.x + m[3, 1] * v.y + m[3, 2] * v.z + m[3, 3] * v.w
-			);
-		}
-
 		public IEnumerator GetEnumerator ()
 		{
 			return Matrix.GetEnumerator ();
@@ -274,6 +273,15 @@ namespace LeoDeg.Math.Matrices
 				Matrix[1, 0], Matrix[1, 1], Matrix[1, 2], Matrix[1, 3],
 				Matrix[2, 0], Matrix[2, 1], Matrix[2, 2], Matrix[2, 3],
 				Matrix[3, 0], Matrix[3, 1], Matrix[3, 2], Matrix[3, 3]);
+		}
+
+		public Matrice3 ToMatrice3 ()
+		{
+			return new Matrice3 (
+				Matrix[0, 0], Matrix[0, 1], Matrix[0, 2],
+				Matrix[1, 0], Matrix[1, 1], Matrix[1, 2],
+				Matrix[2, 0], Matrix[2, 1], Matrix[2, 2]
+			);
 		}
 
 		public static Matrice4 Inverse (Matrice4 M)

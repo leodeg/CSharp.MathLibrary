@@ -1,6 +1,6 @@
 ﻿using System;
 using LeoDeg.Math.Matrices;
-using LeoDeg.MathLib;
+using LeoDeg.Math;
 
 namespace LeoDeg.Math.Vectors
 {
@@ -249,20 +249,20 @@ namespace LeoDeg.Math.Vectors
 
 		/// <summary>
 		/// Make projection of vector a onto vector b.
-		/// <para>((a * b) / b^2) * b</para>
+		/// <para>(a.b / b.b) * b</para>
 		/// </summary>
-		public static Vector3 Project (Vector3 a, Vector3 b)
+		public static Vector3 Project (Vector3 from, Vector3 to)
 		{
-			return b * (Dot (a, b) / Dot (b, b));
+			return to * (Dot (from, to) / Dot (to, to));
 		}
 
 		/// <summary>
 		/// Make perpendicular vector from vector a to vector b.
-		/// <para>a - (((a * b) / b^2 ) * b)</para>
+		/// <para>a - ((a.b / b.b) * b)</para>
 		/// </summary>
-		public static Vector3 Reject (Vector3 a, Vector3 b)
+		public static Vector3 Reject (Vector3 from, Vector3 to)
 		{
-			return a - (b * (Dot (a, b) / Dot (b, b)));
+			return from - (to * (Dot (from, to) / Dot (to, to)));
 		}
 
 		public static Vector3 Perp (Vector3 vector)

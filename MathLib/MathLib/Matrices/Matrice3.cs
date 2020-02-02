@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using LeoDeg.Math.Vectors;
-using LeoDeg.MathLib;
+using LeoDeg.Math;
 
 namespace LeoDeg.Math.Matrices
 {
@@ -23,7 +23,6 @@ namespace LeoDeg.Math.Matrices
 			Matrix[0, 0] = n00; Matrix[0, 1] = n01; Matrix[0, 2] = n02;
 			Matrix[1, 0] = n10; Matrix[1, 1] = n11; Matrix[1, 2] = n12;
 			Matrix[2, 0] = n20; Matrix[2, 1] = n21; Matrix[2, 2] = n22;
-
 		}
 
 		public Matrice3 (Vector3 a, Vector3 b, Vector3 c)

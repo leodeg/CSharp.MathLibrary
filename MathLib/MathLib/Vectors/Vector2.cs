@@ -168,18 +168,18 @@ namespace LeoDeg.Math.Vectors
 		/// Make projection of vector a onto vector b.
 		/// <para>((a * b) / b^2) * b</para>
 		/// </summary>
-		public static Vector2 Project (Vector2 a, Vector2 b)
+		public static Vector2 Project (Vector2 from, Vector2 to)
 		{
-			return b * (Dot (a, b) / Dot (b, b));
+			return to * (Dot (from, to) / Dot (to, to));
 		}
 
 		/// <summary>
 		/// Make perpendicular vector from vector a to vector b.
 		/// <para>a - (((a * b) / b^2 ) * b)</para>
 		/// </summary>
-		public static Vector2 Reject (Vector2 a, Vector2 b)
+		public static Vector2 Reject (Vector2 from, Vector2 to)
 		{
-			return a - (b * (Dot (a, b) / Dot (b, b)));
+			return from - (to * (Dot (from, to) / Dot (to, to)));
 		}
 
 		public static Vector2 Perp (Vector2 vector)

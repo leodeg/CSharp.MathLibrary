@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using LeoDeg.Math.Vectors;
-using LeoDeg.MathLib;
+using LeoDeg.Math;
 
 namespace LeoDeg.Math.Matrices
 {

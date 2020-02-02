@@ -1,5 +1,5 @@
 ﻿using LeoDeg.Math.Matrices;
-using LeoDeg.MathLib;
+using LeoDeg.Math;
 using System;
 using System.Collections;
 

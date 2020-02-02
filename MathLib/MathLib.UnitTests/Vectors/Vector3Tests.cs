@@ -204,5 +204,11 @@ namespace LeoDeg.Math.Vectors
 		{
 			Assert.AreEqual (0, Vector3.AngleType (new Vector3 (1, 0, 0), new Vector3 (0, 1, 0)));
 		}
+
+		[Test ()]
+		public void Projection_GivenTwoVectors_ProjectOntoSecondVector_ReturnNewVector ()
+		{
+			Assert.AreEqual (new Vector3 (3f/13f, 0, 15f/13f), Vector3.Project (new Vector3 (1, 0, 1), new Vector3 (1, 0, 5)));
+		}
 	}
 }

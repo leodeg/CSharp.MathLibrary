@@ -1,3 +1,8 @@
+### Resources
+- Books
+  - [Foundations of Game Engine Development, Volume 1: Mathematics](https://www.amazon.com/Foundations-Game-Engine-Development-Mathematics/dp/0985811749)
+  - [Mathematics for 3D Game Programming and Computer Graphics, Third Edition](https://www.amazon.com/Mathematics-Programming-Computer-Graphics-Third/dp/1435458869)
+
 ### Leo Math Library
 - [LeoMath](MathLib//MathLib//LeoMath.cs)
   - [x] Abs
@@ -47,8 +52,17 @@
 
 #### Geometry
 - [Plane](MathLib//MathLib//Geometry//Plane.cs)
-  - [x] Lerp
+  - [x] Linear interpolation
 - [Line](MathLib//MathLib//Geometry//Line.cs)
-  - [x] Lerp
+  - [x] Linear interpolation
   - [x] Reflect
   - [x] Intersect at another line
+
+#### Quaternion
+- [ ] Inverse
+- [ ] Normalize
+- [ ] Look at target
+- [ ] Linear interpolation
+- [ ] Convert to Angle axis
+- [ ] Angle between two rotations
+- [ ] Spherical linear interpolation
